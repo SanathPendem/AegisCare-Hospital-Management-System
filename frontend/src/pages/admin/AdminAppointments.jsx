@@ -5,7 +5,7 @@ import ActionMenu from '../../components/common/ActionMenu';
 import EmptyState from '../../components/common/EmptyState';
 import { TableSkeleton } from '../../components/common/Skeleton';
 import { useToast } from '../../context/ToastContext';
-import { Calendar, Clock, CheckCircle2, AlertCircle, XCircle, Search, Filter } from 'lucide-react';
+import { Calendar, Clock, CheckCircle2, AlertCircle, XCircle, Search, Filter, Plus, Download } from 'lucide-react';
 
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -50,102 +50,141 @@ const AdminAppointments = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Master Appointment Schedule</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Real-time status tracking for OPD consultations across clinical departments</p>
+          <h1 className="aegis-page-title">Master Appointment Schedule</h1>
+          <p className="aegis-page-subtitle">Real-time status tracking for OPD consultations across clinical departments.</p>
         </div>
 
-        <div className="flex items-center space-x-3">
-          <div className="relative w-64">
-            <Search size={16} className="text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search patient or doctor..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-sky-600 outline-none"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Booked</span>
-            <p className="text-2xl font-black text-slate-900 mt-1">{appointments.length || 124}</p>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold">
-            <Calendar size={20} />
-          </div>
-        </div>
-
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Completed Today</span>
-            <p className="text-2xl font-black text-emerald-600 mt-1">
-              {appointments.filter((a) => a.status === 'COMPLETED').length || 68}
-            </p>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-            <CheckCircle2 size={20} />
-          </div>
-        </div>
-
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Pending Check-in</span>
-            <p className="text-2xl font-black text-amber-600 mt-1">
-              {appointments.filter((a) => a.status === 'PENDING').length || 18}
-            </p>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
-            <AlertCircle size={20} />
-          </div>
-        </div>
-
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Cancelled / Absent</span>
-            <p className="text-2xl font-black text-rose-600 mt-1">
-              {appointments.filter((a) => a.status === 'CANCELLED').length || 8}
-            </p>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold">
-            <XCircle size={20} />
-          </div>
-        </div>
-      </div>
-
-      {/* Filter Tabs */}
-      <div className="flex items-center space-x-2 border-b border-slate-200 pb-3 text-xs font-bold">
-        <Filter size={14} className="text-slate-400 mr-2" />
-        {['ALL', 'CONFIRMED', 'PENDING', 'COMPLETED', 'CANCELLED'].map((st) => (
+        <div className="flex items-center gap-3">
           <button
-            key={st}
-            onClick={() => setFilterStatus(st)}
-            className={`px-3 py-1.5 rounded-lg transition ${filterStatus === st ? 'bg-sky-900 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+            onClick={() => addToast('Exporting schedule to CSV format...', 'info')}
+            className="aegis-btn aegis-btn-secondary"
           >
-            {st}
+            <Download size={18} />
+            <span>Export Schedule</span>
           </button>
-        ))}
+          <button
+            onClick={() => addToast('Opening appointment booking dialog...', 'info')}
+            className="aegis-btn aegis-btn-primary"
+          >
+            <Plus size={18} />
+            <span>Book Appointment</span>
+          </button>
+        </div>
       </div>
 
-      {/* Main Table */}
-      <div className="glass-card">
+      {/* KPI Cards Grid (4-Column Grid on Desktop) */}
+      <div className="aegis-kpi-grid">
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Total Booked</span>
+            <div className="aegis-kpi-icon-wrapper bg-sky-50 text-sky-700">
+              <Calendar size={22} />
+            </div>
+          </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number">{appointments.length || 124}</span>
+            <span className="aegis-kpi-trend positive">
+              ↑ 8% vs last week
+            </span>
+          </div>
+        </div>
+
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Completed Today</span>
+            <div className="aegis-kpi-icon-wrapper bg-emerald-50 text-emerald-700">
+              <CheckCircle2 size={22} />
+            </div>
+          </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number text-emerald-700">
+              {appointments.filter((a) => a.status === 'COMPLETED').length || 68}
+            </span>
+            <span className="aegis-kpi-trend positive">
+              On track
+            </span>
+          </div>
+        </div>
+
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Pending Check-in</span>
+            <div className="aegis-kpi-icon-wrapper bg-amber-50 text-amber-700">
+              <AlertCircle size={22} />
+            </div>
+          </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number text-amber-700">
+              {appointments.filter((a) => a.status === 'PENDING').length || 18}
+            </span>
+            <span className="aegis-kpi-trend neutral">
+              OPD Front Desk
+            </span>
+          </div>
+        </div>
+
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Cancelled / Absent</span>
+            <div className="aegis-kpi-icon-wrapper bg-rose-50 text-rose-700">
+              <XCircle size={22} />
+            </div>
+          </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number text-rose-700">
+              {appointments.filter((a) => a.status === 'CANCELLED').length || 8}
+            </span>
+            <span className="aegis-kpi-trend positive">
+              Low no-show rate
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Search & Filter Toolbar */}
+      <div className="aegis-toolbar">
+        <div className="aegis-search-input-group">
+          <Search size={18} className="aegis-search-icon" />
+          <input
+            type="text"
+            placeholder="Search by patient name or assigned doctor..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="aegis-input"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 overflow-x-auto py-1">
+          <Filter size={16} className="text-slate-400 mr-1 shrink-0" />
+          {['ALL', 'CONFIRMED', 'PENDING', 'COMPLETED', 'CANCELLED'].map((st) => (
+            <button
+              key={st}
+              onClick={() => setFilterStatus(st)}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition shrink-0 ${filterStatus === st ? 'bg-sky-900 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+            >
+              {st}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Table Card */}
+      <div className="aegis-table-card">
         {loading ? (
-          <TableSkeleton rows={6} cols={6} />
+          <div className="p-6">
+            <TableSkeleton rows={6} cols={7} />
+          </div>
         ) : filteredAppts.length === 0 ? (
           <EmptyState
             title="No appointments found"
-            description="No appointment bookings match the selected status filter."
+            description="No appointment bookings match your current search query or filter."
           />
         ) : (
-          <div className="data-table-container">
-            <table className="data-table">
+          <div className="overflow-x-auto">
+            <table className="aegis-table">
               <thead>
                 <tr>
                   <th>Appointment #</th>
@@ -159,14 +198,20 @@ const AdminAppointments = () => {
               </thead>
               <tbody>
                 {filteredAppts.map((appt) => (
-                  <tr key={appt.id} className="hover:bg-slate-50">
-                    <td style={{ fontWeight: 800, color: '#0f4c81' }}>#{appt.id}</td>
-                    <td style={{ fontWeight: 700, color: '#0f172a' }}>{appt.patient_detail?.user?.full_name || 'Patient'}</td>
-                    <td>Dr. {appt.doctor_detail?.user?.full_name || 'Consultant Doctor'}</td>
-                    <td className="text-xs text-slate-600">{appt.appointment_date}</td>
+                  <tr key={appt.id} className="hoverable">
+                    <td className="font-extrabold text-sky-800">#{appt.id}</td>
                     <td>
-                      <span className="inline-flex items-center text-xs font-semibold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-md">
-                        <Clock size={12} className="mr-1" />
+                      <span className="font-bold text-slate-900 block text-sm">
+                        {appt.patient_detail?.user?.full_name || 'Patient Booking'}
+                      </span>
+                    </td>
+                    <td className="font-medium text-slate-700">
+                      Dr. {appt.doctor_detail?.user?.full_name || 'Consultant Physician'}
+                    </td>
+                    <td className="text-xs text-slate-600 font-medium">{appt.appointment_date}</td>
+                    <td>
+                      <span className="inline-flex items-center text-xs font-bold text-sky-800 bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-200">
+                        <Clock size={13} className="mr-1.5 text-sky-600" />
                         {appt.time_slot}
                       </span>
                     </td>

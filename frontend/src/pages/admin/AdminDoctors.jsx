@@ -5,7 +5,7 @@ import ActionMenu from '../../components/common/ActionMenu';
 import EmptyState from '../../components/common/EmptyState';
 import { TableSkeleton } from '../../components/common/Skeleton';
 import { useToast } from '../../context/ToastContext';
-import { Stethoscope, Plus, Search, Eye, Edit3, Award, Calendar, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Stethoscope, Plus, Search, Eye, Edit3, Award, Calendar, CheckCircle2, ShieldCheck, Download } from 'lucide-react';
 
 const AdminDoctors = () => {
   const [doctors, setDoctors] = useState([]);
@@ -53,7 +53,7 @@ const AdminDoctors = () => {
     try {
       await doctorService.create(formData);
       setIsModalOpen(false);
-      addToast('Doctor registered successfully!', 'success');
+      addToast('Doctor profile registered successfully!', 'success');
       setFormData({
         user_data: { email: '', password: 'password123', password_confirm: 'password123', first_name: '', last_name: '', phone: '' },
         specialization: 'Cardiology',
@@ -72,81 +72,114 @@ const AdminDoctors = () => {
 
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Doctor Profiles</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Manage hospital consultants, specialization credentials, and consultation fees</p>
+          <h1 className="aegis-page-title">Doctor Profiles</h1>
+          <p className="aegis-page-subtitle">Manage hospital consultants, specialization credentials, and consultation fees.</p>
         </div>
 
-        <div className="flex items-center space-x-3">
-          <div className="relative w-64">
-            <Search size={16} className="text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search doctor by name, specialty..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-sky-600 outline-none"
-            />
-          </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => addToast('Exporting doctors list to CSV...', 'info')}
+            className="aegis-btn aegis-btn-secondary"
+          >
+            <Download size={18} />
+            <span>Export CSV</span>
+          </button>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center px-4 py-2 bg-sky-800 hover:bg-sky-900 text-white rounded-xl text-xs font-bold transition shadow-sm"
+            className="aegis-btn aegis-btn-primary"
           >
-            <Plus size={16} className="mr-1.5" />
-            Add Doctor
+            <Plus size={18} />
+            <span>Add Doctor</span>
           </button>
         </div>
       </div>
 
-      {/* KPI Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Consultants</span>
-            <p className="text-2xl font-black text-slate-900 mt-1">{doctors.length || 86}</p>
+      {/* KPI Cards Grid (4-Column Grid on Desktop) */}
+      <div className="aegis-kpi-grid">
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Total Consultants</span>
+            <div className="aegis-kpi-icon-wrapper bg-sky-50 text-sky-700">
+              <Stethoscope size={22} />
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold">
-            <Stethoscope size={20} />
-          </div>
-        </div>
-
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Specialty Depts</span>
-            <p className="text-2xl font-black text-indigo-600 mt-1">15</p>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold">
-            <Award size={20} />
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number">{doctors.length || 86}</span>
+            <span className="aegis-kpi-trend positive">
+              Active Faculty
+            </span>
           </div>
         </div>
 
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Avg Experience</span>
-            <p className="text-2xl font-black text-emerald-600 mt-1">14.8 Yrs</p>
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Specialty Depts</span>
+            <div className="aegis-kpi-icon-wrapper bg-indigo-50 text-indigo-700">
+              <Award size={22} />
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-            <ShieldCheck size={20} />
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number text-indigo-700">15</span>
+            <span className="aegis-kpi-trend positive">
+              Excellence Centers
+            </span>
           </div>
         </div>
 
-        <div className="glass-card flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Consultation Desks</span>
-            <p className="text-2xl font-black text-amber-600 mt-1">24 OPD</p>
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Avg Experience</span>
+            <div className="aegis-kpi-icon-wrapper bg-emerald-50 text-emerald-700">
+              <ShieldCheck size={22} />
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
-            <CheckCircle2 size={20} />
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number text-emerald-700">14.8 Yrs</span>
+            <span className="aegis-kpi-trend positive">
+              Senior Medical Board
+            </span>
+          </div>
+        </div>
+
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Consultation Desks</span>
+            <div className="aegis-kpi-icon-wrapper bg-amber-50 text-amber-700">
+              <CheckCircle2 size={22} />
+            </div>
+          </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number text-amber-700">24 OPD</span>
+            <span className="aegis-kpi-trend neutral">
+              Active Desks
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Main Doctors Table */}
-      <div className="glass-card">
+      {/* Search Toolbar */}
+      <div className="aegis-toolbar">
+        <div className="aegis-search-input-group">
+          <Search size={18} className="aegis-search-icon" />
+          <input
+            type="text"
+            placeholder="Search doctor by name, specialty, or department..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="aegis-input"
+          />
+        </div>
+      </div>
+
+      {/* Main Table Card */}
+      <div className="aegis-table-card">
         {loading ? (
-          <TableSkeleton rows={6} cols={7} />
+          <div className="p-6">
+            <TableSkeleton rows={6} cols={8} />
+          </div>
         ) : doctors.length === 0 ? (
           <EmptyState
             title="No doctors found"
@@ -155,8 +188,8 @@ const AdminDoctors = () => {
             onAction={() => setIsModalOpen(true)}
           />
         ) : (
-          <div className="data-table-container">
-            <table className="data-table">
+          <div className="overflow-x-auto">
+            <table className="aegis-table">
               <thead>
                 <tr>
                   <th>Doctor Name</th>
@@ -172,28 +205,30 @@ const AdminDoctors = () => {
               <tbody>
                 {doctors.map((doc) => {
                   const fullName = doc.user ? `Dr. ${doc.user.first_name || ''} ${doc.user.last_name || ''}`.trim() : 'Dr. Senior Consultant';
+                  const initial = (fullName[4] || 'D').toUpperCase();
+
                   return (
-                    <tr key={doc.id} className="hover:bg-slate-50">
+                    <tr key={doc.id} className="hoverable">
                       <td>
-                        <div className="flex items-center space-x-3">
-                          <div className="w-9 h-9 rounded-full bg-indigo-100 text-indigo-800 font-bold text-xs flex items-center justify-center shrink-0 border border-indigo-200">
-                            {fullName[4] || 'D'}
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-800 font-extrabold text-sm flex items-center justify-center shrink-0 border border-indigo-200 shadow-sm">
+                            {initial}
                           </div>
                           <div>
-                            <span className="font-bold text-slate-900 block">{fullName}</span>
-                            <span className="text-[11px] text-slate-400">{doc.user?.email || 'doctor@hospital.com'}</span>
+                            <span className="font-bold text-slate-900 block text-sm">{fullName}</span>
+                            <span className="text-xs text-slate-400">{doc.user?.email || 'doctor@aegiscare.com'}</span>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <span className="inline-block px-2.5 py-0.5 text-[11px] font-bold text-sky-800 bg-sky-50 border border-sky-200 rounded-full">
+                        <span className="inline-block px-2.5 py-0.5 text-xs font-bold text-sky-800 bg-sky-50 border border-sky-200 rounded-full">
                           {doc.specialization}
                         </span>
                       </td>
                       <td className="text-xs text-slate-700 font-medium">{doc.department}</td>
                       <td className="text-xs text-slate-600 font-medium">{doc.qualification}</td>
                       <td className="text-xs font-bold text-slate-900">{doc.experience_years} Yrs</td>
-                      <td className="text-xs font-black text-emerald-600">₹{doc.consultation_fee}</td>
+                      <td className="text-xs font-black text-emerald-700">₹{doc.consultation_fee}</td>
                       <td className="text-xs font-mono text-slate-500">{doc.license_number}</td>
                       <td className="text-right">
                         <ActionMenu
@@ -219,52 +254,52 @@ const AdminDoctors = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
               <label className="form-label">First Name *</label>
-              <input type="text" required className="form-input" value={formData.user_data.first_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, first_name: e.target.value } })} />
+              <input type="text" required className="aegis-input" value={formData.user_data.first_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, first_name: e.target.value } })} />
             </div>
             <div className="form-group">
               <label className="form-label">Last Name *</label>
-              <input type="text" required className="form-input" value={formData.user_data.last_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, last_name: e.target.value } })} />
+              <input type="text" required className="aegis-input" value={formData.user_data.last_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, last_name: e.target.value } })} />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
               <label className="form-label">Email Address *</label>
-              <input type="email" required className="form-input" value={formData.user_data.email} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, email: e.target.value } })} />
+              <input type="email" required className="aegis-input" value={formData.user_data.email} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, email: e.target.value } })} />
             </div>
             <div className="form-group">
               <label className="form-label">Phone Number</label>
-              <input type="text" className="form-input" value={formData.user_data.phone} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, phone: e.target.value } })} />
+              <input type="text" className="aegis-input" value={formData.user_data.phone} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, phone: e.target.value } })} />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
               <label className="form-label">Specialization *</label>
-              <input type="text" required className="form-input" value={formData.specialization} onChange={(e) => setFormData({ ...formData, specialization: e.target.value })} />
+              <input type="text" required className="aegis-input" value={formData.specialization} onChange={(e) => setFormData({ ...formData, specialization: e.target.value })} />
             </div>
             <div className="form-group">
               <label className="form-label">Department *</label>
-              <input type="text" required className="form-input" value={formData.department} onChange={(e) => setFormData({ ...formData, department: e.target.value })} />
+              <input type="text" required className="aegis-input" value={formData.department} onChange={(e) => setFormData({ ...formData, department: e.target.value })} />
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div className="form-group">
               <label className="form-label">Qualifications</label>
-              <input type="text" required className="form-input" value={formData.qualification} onChange={(e) => setFormData({ ...formData, qualification: e.target.value })} />
+              <input type="text" required className="aegis-input" value={formData.qualification} onChange={(e) => setFormData({ ...formData, qualification: e.target.value })} />
             </div>
             <div className="form-group">
               <label className="form-label">License #</label>
-              <input type="text" required className="form-input" value={formData.license_number} onChange={(e) => setFormData({ ...formData, license_number: e.target.value })} />
+              <input type="text" required className="aegis-input" value={formData.license_number} onChange={(e) => setFormData({ ...formData, license_number: e.target.value })} />
             </div>
             <div className="form-group">
               <label className="form-label">Fee (₹)</label>
-              <input type="number" required className="form-input" value={formData.consultation_fee} onChange={(e) => setFormData({ ...formData, consultation_fee: parseFloat(e.target.value) })} />
+              <input type="number" required className="aegis-input" value={formData.consultation_fee} onChange={(e) => setFormData({ ...formData, consultation_fee: parseFloat(e.target.value) })} />
             </div>
           </div>
 
-          <button type="submit" className="w-full py-3 bg-sky-800 hover:bg-sky-900 text-white font-bold rounded-lg transition shadow-md">
+          <button type="submit" className="aegis-btn aegis-btn-primary w-full justify-center">
             Register Doctor Profile
           </button>
         </form>

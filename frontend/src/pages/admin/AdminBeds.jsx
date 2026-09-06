@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
-import Badge from '../../components/Badge';
 import EmptyState from '../../components/common/EmptyState';
 import { CardSkeleton, TableSkeleton } from '../../components/common/Skeleton';
 import { useToast } from '../../context/ToastContext';
-import { Bed, CheckCircle2, UserMinus, HeartPulse, ShieldCheck, Activity } from 'lucide-react';
+import { Bed, CheckCircle2, UserMinus, HeartPulse, ShieldCheck, Activity, Plus } from 'lucide-react';
 
 const AdminBeds = () => {
   const [wards, setWards] = useState([]);
@@ -45,64 +44,79 @@ const AdminBeds = () => {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-black text-slate-900 tracking-tight">Inpatient Wards & Bed Occupancy</h1>
-        <p className="text-xs text-slate-500 mt-0.5">Real-time ICU, General Ward, Deluxe Suite occupancy monitoring and discharge workflow</p>
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="aegis-page-title">Inpatient Wards & Bed Occupancy</h1>
+          <p className="aegis-page-subtitle">Real-time ICU, General Ward, Deluxe Suite occupancy monitoring and discharge workflow.</p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => addToast('Admit patient dialog opened...', 'info')}
+            className="aegis-btn aegis-btn-primary"
+          >
+            <Plus size={18} />
+            <span>Admit Inpatient</span>
+          </button>
+        </div>
       </div>
 
-      {/* Ward Occupancy Cards */}
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[1, 2, 3, 4].map((i) => <CardSkeleton key={i} />)}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {wards.map((w) => {
-            const occupied = w.total_beds - w.available_beds;
-            const occupancyPct = Math.round((occupied / (w.total_beds || 1)) * 100);
+      {/* Ward Occupancy Cards (4-Column Grid on Desktop) */}
+      <div>
+        <h2 className="aegis-section-title mb-4">Ward Capacity Summary</h2>
+        {loading ? (
+          <div className="aegis-kpi-grid">
+            {[1, 2, 3, 4].map((i) => <CardSkeleton key={i} />)}
+          </div>
+        ) : (
+          <div className="aegis-kpi-grid">
+            {wards.map((w) => {
+              const occupied = w.total_beds - w.available_beds;
+              const occupancyPct = Math.round((occupied / (w.total_beds || 1)) * 100);
 
-            return (
-              <div key={w.id} className="glass-card flex flex-col justify-between space-y-4">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-slate-900 text-base">{w.name}</h3>
-                    <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                      ₹{w.daily_rate}/day
-                    </span>
+              return (
+                <div key={w.id} className="aegis-kpi-card space-y-4">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-extrabold text-slate-900 text-base">{w.name}</h3>
+                      <span className="aegis-badge aegis-badge-active">
+                        ₹{w.daily_rate}/day
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1 font-medium">Location: {w.floor}</p>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">Location: {w.floor}</p>
-                </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs font-bold">
-                    <span className="text-slate-600">Occupancy: {occupancyPct}%</span>
-                    <span className="text-sky-800">{w.available_beds} Available</span>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs font-bold">
+                      <span className="text-slate-600">Occupancy: {occupancyPct}%</span>
+                      <span className="text-sky-800 font-extrabold">{w.available_beds} Available</span>
+                    </div>
+                    <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full transition-all duration-500 ${occupancyPct > 85 ? 'bg-rose-600' : occupancyPct > 60 ? 'bg-amber-500' : 'bg-sky-600'}`}
+                        style={{ width: `${occupancyPct}%` }}
+                      />
+                    </div>
                   </div>
-                  <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full transition-all duration-500 ${occupancyPct > 85 ? 'bg-rose-600' : occupancyPct > 60 ? 'bg-amber-500' : 'bg-sky-600'}`}
-                      style={{ width: `${occupancyPct}%` }}
-                    />
+
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-semibold">
+                    <span>Capacity: {w.total_beds} Beds</span>
+                    <span className="text-slate-800 font-bold">Occupied: {occupied} Beds</span>
                   </div>
                 </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-semibold">
-                  <span>Capacity: {w.total_beds} Beds</span>
-                  <span>Occupied: {occupied} Beds</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Active Inpatient Admissions */}
-      <div className="glass-card">
+      {/* Active Inpatient Admissions Table */}
+      <div className="aegis-table-card p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-base font-bold text-slate-900">Active Patient Inpatient Admissions</h3>
-            <p className="text-xs text-slate-500">Live bed assignments and medical discharge queue</p>
+            <h3 className="aegis-section-title">Active Inpatient Admissions</h3>
+            <p className="aegis-page-subtitle">Live bed assignments and medical discharge queue</p>
           </div>
         </div>
 
@@ -114,8 +128,8 @@ const AdminBeds = () => {
             description="There are currently no patients admitted to hospital wards."
           />
         ) : (
-          <div className="data-table-container">
-            <table className="data-table">
+          <div className="overflow-x-auto">
+            <table className="aegis-table">
               <thead>
                 <tr>
                   <th>Patient Name</th>
@@ -128,18 +142,18 @@ const AdminBeds = () => {
               </thead>
               <tbody>
                 {admissions.map((adm) => (
-                  <tr key={adm.id} className="hover:bg-slate-50">
-                    <td style={{ fontWeight: 700, color: '#0f172a' }}>{adm.patient_detail?.user?.full_name || 'Admitted Patient'}</td>
+                  <tr key={adm.id} className="hoverable">
+                    <td className="font-bold text-slate-900">{adm.patient_detail?.user?.full_name || 'Admitted Patient'}</td>
                     <td>
-                      <span className="inline-flex items-center text-xs font-bold text-sky-800 bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
-                        <Bed size={12} className="mr-1" />
+                      <span className="inline-flex items-center text-xs font-bold text-sky-800 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+                        <Bed size={14} className="mr-1.5 text-sky-600" />
                         {adm.bed_detail?.ward_name} ({adm.bed_detail?.bed_number})
                       </span>
                     </td>
-                    <td className="text-xs text-slate-600">{new Date(adm.admitted_at).toLocaleDateString()}</td>
-                    <td className="text-xs text-slate-700">{adm.reason || 'General Observation'}</td>
+                    <td className="text-xs text-slate-600 font-medium">{new Date(adm.admitted_at).toLocaleDateString()}</td>
+                    <td className="text-xs text-slate-700 font-medium">{adm.reason || 'General Observation'}</td>
                     <td>
-                      <span className={`inline-flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full ${adm.status === 'ADMITTED' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}`}>
+                      <span className={`aegis-badge ${adm.status === 'ADMITTED' ? 'aegis-badge-pending' : 'aegis-badge-active'}`}>
                         {adm.status}
                       </span>
                     </td>
@@ -147,14 +161,15 @@ const AdminBeds = () => {
                       {adm.status === 'ADMITTED' ? (
                         <button
                           onClick={() => handleDischarge(adm.id)}
-                          className="inline-flex items-center px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-xs"
+                          className="aegis-btn aegis-btn-crimson"
+                          style={{ height: '36px', fontSize: '12px', padding: '0 12px' }}
                         >
-                          <UserMinus size={13} className="mr-1" />
-                          Discharge Patient
+                          <UserMinus size={14} />
+                          <span>Discharge</span>
                         </button>
                       ) : (
-                        <span className="text-xs font-bold text-emerald-600 flex items-center justify-end">
-                          <CheckCircle2 size={13} className="mr-1" /> Discharged
+                        <span className="text-xs font-bold text-emerald-700 flex items-center justify-end">
+                          <CheckCircle2 size={14} className="mr-1" /> Discharged
                         </span>
                       )}
                     </td>
