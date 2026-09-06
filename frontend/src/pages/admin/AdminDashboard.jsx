@@ -7,12 +7,10 @@ import {
   Stethoscope, 
   Calendar, 
   DollarSign, 
-  AlertTriangle, 
   ArrowRight,
   TrendingUp,
-  Activity,
-  Bed,
-  CheckCircle2
+  CheckCircle2,
+  Activity
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { 
@@ -25,8 +23,6 @@ import {
   CartesianGrid, 
   BarChart, 
   Bar, 
-  PieChart, 
-  Pie, 
   Cell 
 } from 'recharts';
 
@@ -45,8 +41,6 @@ const statusData = [
   { status: 'Pending', count: 18, fill: '#d97706' },
   { status: 'Cancelled', count: 8, fill: '#e11d48' }
 ];
-
-const COLORS = ['#0f4c81', '#0284c7', '#059669', '#e11d48', '#d97706'];
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -70,7 +64,7 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="aegis-kpi-grid">
           {[1, 2, 3, 4].map((i) => (
             <CardSkeleton key={i} />
           ))}
@@ -85,94 +79,91 @@ const AdminDashboard = () => {
 
   return (
     <div className="space-y-8">
-      {/* Page Header Greeting */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-sky-900 via-sky-800 to-slate-900 text-white p-6 rounded-2xl shadow-md">
+      {/* Operations Header Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-sky-900 via-sky-800 to-slate-900 text-white p-6 rounded-2xl shadow-lg border border-sky-800/40">
         <div>
           <span className="text-xs font-extrabold uppercase tracking-widest text-rose-400">
             AegisCare Operations Center
           </span>
-          <h1 className="text-2xl sm:text-3xl font-black mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black mt-1 tracking-tight">
             Good morning, System Admin 👋
           </h1>
           <p className="text-xs sm:text-sm text-sky-200 mt-1">
-            Here's the live clinical performance, bed occupancy, and revenue summary for today.
+            Live clinical performance, bed occupancy, and revenue summary for AegisCare Hospitals.
           </p>
         </div>
         <Link
           to="/admin/reports"
-          className="inline-flex items-center px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs shadow-lg transition self-start sm:self-auto shrink-0"
+          className="aegis-btn aegis-btn-crimson shrink-0"
         >
-          View Full Analytics <ArrowRight size={16} className="ml-1.5" />
+          <span>View Full Analytics</span>
+          <ArrowRight size={16} />
         </Link>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Total Patients */}
-        <div className="glass-card flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase text-slate-500 tracking-wider">Total Patients</span>
-            <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold">
-              <Users size={20} />
+      {/* KPI Cards Grid (MANDATORY 4-COL DESKTOP) */}
+      <div className="aegis-kpi-grid">
+        {/* Card 1 */}
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Total Patients</span>
+            <div className="aegis-kpi-icon-wrapper bg-sky-50 text-sky-700">
+              <Users size={22} />
             </div>
           </div>
-          <div className="mt-3">
-            <p className="text-3xl font-black text-slate-900">{metrics.total_patients || 1248}</p>
-            <div className="flex items-center mt-2 text-xs font-bold text-emerald-600">
-              <TrendingUp size={14} className="mr-1" />
-              <span>+12% this month</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Active Doctors */}
-        <div className="glass-card flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase text-slate-500 tracking-wider">Active Consultants</span>
-            <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold">
-              <Stethoscope size={20} />
-            </div>
-          </div>
-          <div className="mt-3">
-            <p className="text-3xl font-black text-slate-900">{metrics.total_doctors || 86}</p>
-            <div className="flex items-center mt-2 text-xs font-bold text-sky-600">
-              <CheckCircle2 size={14} className="mr-1" />
-              <span>15 Centers of Excellence</span>
-            </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number">{metrics.total_patients || 1248}</span>
+            <span className="aegis-kpi-trend positive">
+              <TrendingUp size={14} /> +12% this month
+            </span>
           </div>
         </div>
 
-        {/* Total Appointments */}
-        <div className="glass-card flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase text-slate-500 tracking-wider">Total Consultations</span>
-            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center font-bold">
-              <Calendar size={20} />
+        {/* Card 2 */}
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Active Consultants</span>
+            <div className="aegis-kpi-icon-wrapper bg-indigo-50 text-indigo-700">
+              <Stethoscope size={22} />
             </div>
           </div>
-          <div className="mt-3">
-            <p className="text-3xl font-black text-slate-900">{metrics.total_appointments || 124}</p>
-            <div className="flex items-center mt-2 text-xs font-bold text-emerald-600">
-              <TrendingUp size={14} className="mr-1" />
-              <span>+8% this week</span>
-            </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number">{metrics.total_doctors || 86}</span>
+            <span className="aegis-kpi-trend positive">
+              <CheckCircle2 size={14} /> 15 Specialties
+            </span>
           </div>
         </div>
 
-        {/* Total Revenue */}
-        <div className="glass-card flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase text-slate-500 tracking-wider">Monthly Revenue</span>
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-              <DollarSign size={20} />
+        {/* Card 3 */}
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Consultations</span>
+            <div className="aegis-kpi-icon-wrapper bg-purple-50 text-purple-700">
+              <Calendar size={22} />
             </div>
           </div>
-          <div className="mt-3">
-            <p className="text-3xl font-black text-slate-900">₹{(metrics.total_revenue || 840000).toLocaleString()}</p>
-            <div className="flex items-center mt-2 text-xs font-bold text-emerald-600">
-              <TrendingUp size={14} className="mr-1" />
-              <span>+14% vs last month</span>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number">{metrics.total_appointments || 124}</span>
+            <span className="aegis-kpi-trend positive">
+              <TrendingUp size={14} /> +8% this week
+            </span>
+          </div>
+        </div>
+
+        {/* Card 4 */}
+        <div className="aegis-kpi-card">
+          <div className="aegis-kpi-header">
+            <span className="aegis-kpi-label">Monthly Revenue</span>
+            <div className="aegis-kpi-icon-wrapper bg-emerald-50 text-emerald-700">
+              <DollarSign size={22} />
             </div>
+          </div>
+          <div className="aegis-kpi-footer">
+            <span className="aegis-card-number text-emerald-700">₹{(metrics.total_revenue || 840000).toLocaleString()}</span>
+            <span className="aegis-kpi-trend positive">
+              <TrendingUp size={14} /> +14% YoY
+            </span>
           </div>
         </div>
       </div>
@@ -180,13 +171,13 @@ const AdminDashboard = () => {
       {/* Analytics Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Growth Trend */}
-        <div className="lg:col-span-2 glass-card">
+        <div className="lg:col-span-2 aegis-table-card p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-base font-bold text-slate-900">Hospital Revenue Growth (2026)</h3>
-              <p className="text-xs text-slate-500">Monthly breakdown of billing income & consultation volume</p>
+              <h3 className="aegis-section-title">Hospital Revenue Growth (2026)</h3>
+              <p className="aegis-page-subtitle">Monthly breakdown of billing income & consultation volume</p>
             </div>
-            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+            <span className="aegis-badge aegis-badge-active">
               Up 14% YoY
             </span>
           </div>
@@ -213,10 +204,10 @@ const AdminDashboard = () => {
         </div>
 
         {/* Appointment Status Distribution */}
-        <div className="glass-card flex flex-col justify-between">
+        <div className="aegis-table-card p-6 flex flex-col justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-900">Appointment Status Distribution</h3>
-            <p className="text-xs text-slate-500 mb-6">OPD consultation status breakdown</p>
+            <h3 className="aegis-section-title">Appointment Breakdown</h3>
+            <p className="aegis-page-subtitle mb-6">OPD consultation status distribution</p>
             <div className="h-52 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={statusData} layout="vertical" margin={{ top: 0, right: 10, left: 10, bottom: 0 }}>
@@ -241,20 +232,20 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Recent System Activity Table */}
-      <div className="glass-card">
+      {/* Recent Appointments Activity Log */}
+      <div className="aegis-table-card p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-base font-bold text-slate-900">Recent Appointments Activity Log</h3>
-            <p className="text-xs text-slate-500">Live consultation check-ins across hospital OPD desks</p>
+            <h3 className="aegis-section-title">Recent Appointments Activity Log</h3>
+            <p className="aegis-page-subtitle">Live consultation check-ins across hospital OPD desks</p>
           </div>
           <Link to="/admin/appointments" className="text-xs text-sky-700 font-bold hover:underline">
             View All Log Entries →
           </Link>
         </div>
 
-        <div className="data-table-container">
-          <table className="data-table">
+        <div className="overflow-x-auto">
+          <table className="aegis-table">
             <thead>
               <tr>
                 <th>Appointment #</th>
@@ -267,12 +258,12 @@ const AdminDashboard = () => {
             </thead>
             <tbody>
               {recentAppts.map((appt) => (
-                <tr key={appt.id}>
-                  <td style={{ fontWeight: 800, color: '#0f4c81' }}>#{appt.id}</td>
-                  <td style={{ fontWeight: 700, color: '#0f172a' }}>{appt.patient_name}</td>
-                  <td>{appt.doctor_name}</td>
-                  <td>{appt.date}</td>
-                  <td>{appt.time}</td>
+                <tr key={appt.id} className="hoverable">
+                  <td className="font-extrabold text-sky-800">#{appt.id}</td>
+                  <td className="font-bold text-slate-900">{appt.patient_name}</td>
+                  <td className="text-slate-700">{appt.doctor_name}</td>
+                  <td className="text-slate-600">{appt.date}</td>
+                  <td className="text-slate-600">{appt.time}</td>
                   <td><Badge status={appt.status} /></td>
                 </tr>
               ))}

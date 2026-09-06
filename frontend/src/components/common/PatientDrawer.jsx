@@ -1,54 +1,64 @@
 import React, { useState } from 'react';
-import { X, User, Phone, Mail, Droplets, MapPin, Calendar, FileText, Pill, CreditCard, Shield } from 'lucide-react';
+import { X, User, Phone, Mail, Droplets, MapPin, Calendar, FileText, Pill, CreditCard, ShieldCheck } from 'lucide-react';
 
 export default function PatientDrawer({ patient, isOpen, onClose }) {
   const [activeTab, setActiveTab] = useState('overview');
 
   if (!isOpen || !patient) return null;
 
-  const fullName = patient.user?.full_name || `${patient.user?.first_name || ''} ${patient.user?.last_name || ''}` || 'Patient Profile';
+  const fullName = patient.user?.full_name || `${patient.user?.first_name || ''} ${patient.user?.last_name || ''}` || 'Patient EMR Profile';
 
   return (
-    <div className="drawer-overlay">
-      <div className="drawer-content">
+    <div className="aegis-drawer-overlay" onClick={onClose}>
+      <div className="aegis-drawer-content" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="bg-sky-900 text-white p-6 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-full bg-sky-700 text-white font-bold text-lg flex items-center justify-center border-2 border-white/30">
-              {fullName[0]}
+        <div className="bg-slate-900 text-white p-6 flex items-center justify-between border-b border-slate-800">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-sky-700 text-white font-black text-lg flex items-center justify-center border-2 border-white/20 shadow-md">
+              {(fullName[0] || 'P').toUpperCase()}
             </div>
             <div>
-              <h3 className="font-extrabold text-lg">{fullName}</h3>
-              <p className="text-xs text-sky-200">Patient ID: #PAT-{patient.id || '101'}</p>
+              <h3 className="font-extrabold text-lg leading-tight text-white">{fullName}</h3>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-xs text-sky-400 font-mono">#PAT-{patient.id || '1024'}</span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="text-[11px] text-emerald-400 font-bold uppercase">Active EMR</span>
+              </div>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-300 hover:text-white p-1 rounded-lg hover:bg-white/10 transition"
+            className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Tabs Navigation */}
-        <div className="flex border-b border-slate-200 bg-slate-50 px-6 text-xs font-bold text-slate-600">
+        <div className="flex border-b border-slate-200 bg-slate-50 px-6 text-xs font-bold text-slate-600 gap-1">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`py-3 px-4 border-b-2 transition ${activeTab === 'overview' ? 'border-sky-700 text-sky-800 bg-white' : 'border-transparent hover:text-slate-900'}`}
+            className={`py-3.5 px-4 border-b-2 font-bold transition ${activeTab === 'overview' ? 'border-sky-700 text-sky-800 bg-white' : 'border-transparent text-slate-500 hover:text-slate-900'}`}
           >
             Overview
           </button>
           <button
             onClick={() => setActiveTab('records')}
-            className={`py-3 px-4 border-b-2 transition ${activeTab === 'records' ? 'border-sky-700 text-sky-800 bg-white' : 'border-transparent hover:text-slate-900'}`}
+            className={`py-3.5 px-4 border-b-2 font-bold transition ${activeTab === 'records' ? 'border-sky-700 text-sky-800 bg-white' : 'border-transparent text-slate-500 hover:text-slate-900'}`}
           >
             Medical Records
           </button>
           <button
             onClick={() => setActiveTab('appointments')}
-            className={`py-3 px-4 border-b-2 transition ${activeTab === 'appointments' ? 'border-sky-700 text-sky-800 bg-white' : 'border-transparent hover:text-slate-900'}`}
+            className={`py-3.5 px-4 border-b-2 font-bold transition ${activeTab === 'appointments' ? 'border-sky-700 text-sky-800 bg-white' : 'border-transparent text-slate-500 hover:text-slate-900'}`}
           >
             Appointments
+          </button>
+          <button
+            onClick={() => setActiveTab('prescriptions')}
+            className={`py-3.5 px-4 border-b-2 font-bold transition ${activeTab === 'prescriptions' ? 'border-sky-700 text-sky-800 bg-white' : 'border-transparent text-slate-500 hover:text-slate-900'}`}
+          >
+            Prescriptions
           </button>
         </div>
 
@@ -56,25 +66,28 @@ export default function PatientDrawer({ patient, isOpen, onClose }) {
         <div className="p-6 overflow-y-auto flex-1 space-y-6">
           {activeTab === 'overview' && (
             <>
-              {/* Personal Info Grid */}
-              <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3 text-xs">
-                <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Demographics</h4>
-                <div className="grid grid-cols-2 gap-3 text-slate-700">
-                  <div className="flex items-center">
-                    <Mail size={14} className="text-sky-600 mr-2 shrink-0" />
-                    <span className="truncate">{patient.user?.email || 'N/A'}</span>
+              {/* Demographics Grid */}
+              <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
+                <h4 className="font-extrabold text-slate-900 uppercase tracking-wider text-xs flex items-center gap-2">
+                  <User size={14} className="text-sky-700" />
+                  Demographics & Contact
+                </h4>
+                <div className="grid grid-cols-2 gap-4 text-xs">
+                  <div>
+                    <span className="text-slate-400 block font-semibold mb-0.5">Email Address</span>
+                    <span className="font-bold text-sky-800 truncate block">{patient.user?.email || 'N/A'}</span>
                   </div>
-                  <div className="flex items-center">
-                    <Phone size={14} className="text-sky-600 mr-2 shrink-0" />
-                    <span>{patient.user?.phone || 'N/A'}</span>
+                  <div>
+                    <span className="text-slate-400 block font-semibold mb-0.5">Phone Number</span>
+                    <span className="font-bold text-slate-800 block">{patient.user?.phone || '+91 98765 43210'}</span>
                   </div>
-                  <div className="flex items-center">
-                    <User size={14} className="text-sky-600 mr-2 shrink-0" />
-                    <span>Gender: {patient.gender || 'N/A'}</span>
+                  <div>
+                    <span className="text-slate-400 block font-semibold mb-0.5">Gender</span>
+                    <span className="font-bold text-slate-800 block">{patient.gender || 'MALE'}</span>
                   </div>
-                  <div className="flex items-center">
-                    <Droplets size={14} className="text-rose-600 mr-2 shrink-0" />
-                    <span className="font-bold text-rose-700">Blood: {patient.blood_group || 'O+'}</span>
+                  <div>
+                    <span className="text-slate-400 block font-semibold mb-0.5">Blood Group</span>
+                    <span className="font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200 inline-block">{patient.blood_group || 'O+'}</span>
                   </div>
                 </div>
               </div>
@@ -82,15 +95,15 @@ export default function PatientDrawer({ patient, isOpen, onClose }) {
               {/* Emergency Contact & Address */}
               <div className="space-y-3">
                 <h4 className="font-bold text-slate-900 text-sm">Emergency Info & Address</h4>
-                <div className="p-4 bg-white rounded-xl border border-slate-200 text-xs space-y-2">
-                  <p className="flex items-center text-slate-700">
-                    <Shield size={14} className="text-emerald-600 mr-2" />
-                    Emergency Contact: <strong className="ml-1 text-slate-900">{patient.emergency_contact_phone || '+91 98765 43210'}</strong>
-                  </p>
-                  <p className="flex items-start text-slate-700">
-                    <MapPin size={14} className="text-sky-600 mr-2 shrink-0 mt-0.5" />
-                    <span>{patient.address || 'Cyber Hills, Hyderabad'}</span>
-                  </p>
+                <div className="p-4 bg-white rounded-2xl border border-slate-200 text-xs space-y-3 shadow-sm">
+                  <div className="flex items-center text-slate-700">
+                    <ShieldCheck size={16} className="text-emerald-600 mr-2.5 shrink-0" />
+                    <span>Emergency Contact: <strong className="ml-1 text-slate-900">{patient.emergency_contact_phone || '+91 98765 12345'}</strong></span>
+                  </div>
+                  <div className="flex items-start text-slate-700">
+                    <MapPin size={16} className="text-sky-600 mr-2.5 shrink-0 mt-0.5" />
+                    <span>{patient.address || 'Cyber Hills, Gachibowli, Hyderabad'}</span>
+                  </div>
                 </div>
               </div>
             </>
@@ -98,13 +111,13 @@ export default function PatientDrawer({ patient, isOpen, onClose }) {
 
           {activeTab === 'records' && (
             <div className="space-y-3">
-              <h4 className="font-bold text-slate-900 text-sm">Clinical Notes & Diagnostics</h4>
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-2">
+              <h4 className="font-bold text-slate-900 text-sm">Clinical EMR Records</h4>
+              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-2">
                 <div className="flex items-center justify-between font-bold text-slate-800">
-                  <span>General OPD Consultation</span>
-                  <span className="text-slate-400">2026-09-01</span>
+                  <span>General Cardiology OPD</span>
+                  <span className="text-slate-400 font-mono">2026-09-01</span>
                 </div>
-                <p className="text-slate-600">Diagnosis: Routine Hypertension Screening. Prescribed Amlodipine 5mg.</p>
+                <p className="text-slate-600">Diagnosis: Primary Hypertension. Normal ECG report attached.</p>
               </div>
             </div>
           )}
@@ -112,24 +125,34 @@ export default function PatientDrawer({ patient, isOpen, onClose }) {
           {activeTab === 'appointments' && (
             <div className="space-y-3">
               <h4 className="font-bold text-slate-900 text-sm">Appointment History</h4>
-              <div className="p-4 bg-white rounded-xl border border-slate-200 text-xs flex items-center justify-between">
+              <div className="p-4 bg-white rounded-2xl border border-slate-200 text-xs flex items-center justify-between shadow-sm">
                 <div>
-                  <strong className="text-slate-900">Dr. Sarah Jenkins (Cardiology)</strong>
-                  <p className="text-slate-500">Scheduled: 2026-09-10 (10:30 AM)</p>
+                  <strong className="text-slate-900 block text-sm">Dr. Sarah Jenkins</strong>
+                  <span className="text-slate-500">Cardiology • Scheduled for Sep 10, 2026</span>
                 </div>
-                <span className="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full text-[10px]">
+                <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold px-2.5 py-1 rounded-full text-[11px]">
                   CONFIRMED
                 </span>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'prescriptions' && (
+            <div className="space-y-3">
+              <h4 className="font-bold text-slate-900 text-sm">Active Prescriptions</h4>
+              <div className="p-4 bg-white rounded-2xl border border-slate-200 text-xs space-y-1 shadow-sm">
+                <strong className="text-slate-900 block">Amlodipine 5mg (Oral Tablet)</strong>
+                <p className="text-slate-500">Dosage: 1 Tablet daily after breakfast for 30 days.</p>
               </div>
             </div>
           )}
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200 flex justify-end space-x-3">
+        <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-slate-300 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100 transition"
+            className="aegis-btn aegis-btn-secondary"
           >
             Close Drawer
           </button>
