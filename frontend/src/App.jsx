@@ -46,11 +46,31 @@ import AdminReports from './pages/admin/AdminReports';
 import AdminBeds from './pages/admin/AdminBeds';
 import DoctorLabTests from './pages/doctor/DoctorLabTests';
 
+// Public Website Pages
+import HomePage from './pages/public/HomePage';
+import AboutPage from './pages/public/AboutPage';
+import DepartmentsPage from './pages/public/DepartmentsPage';
+import DoctorsPage from './pages/public/DoctorsPage';
+import ProceduresPage from './pages/public/ProceduresPage';
+import LaboratoryPage from './pages/public/LaboratoryPage';
+import ContactPage from './pages/public/ContactPage';
+import PublicBookingPage from './pages/public/PublicBookingPage';
+
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/* Public Hospital Website Routes */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/departments" element={<DepartmentsPage />} />
+          <Route path="/doctors" element={<DoctorsPage />} />
+          <Route path="/procedures" element={<ProceduresPage />} />
+          <Route path="/laboratory" element={<LaboratoryPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/book-appointment" element={<PublicBookingPage />} />
+
           {/* Public Auth Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -105,7 +125,7 @@ function App() {
           </Route>
 
           {/* Root Fallback */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

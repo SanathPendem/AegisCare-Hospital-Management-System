@@ -87,15 +87,15 @@ const Sidebar = () => {
               gap: '0.85rem',
               padding: '0.75rem 1rem',
               borderRadius: '10px',
-              fontWeight: isActive ? 700 : 600,
+              fontWeight: isActive ? 800 : 600,
               fontSize: '0.9rem',
               transition: 'all 0.15s ease-in-out',
-              color: isActive ? '#2563eb' : '#475569',
+              color: isActive ? '#0f4c81' : '#475569',
               background: isActive ? '#eff6ff' : 'transparent',
-              borderLeft: isActive ? '3px solid #2563eb' : '3px solid transparent'
+              borderLeft: isActive ? '3px solid #e11d48' : '3px solid transparent'
             })}
           >
-            <Icon size={18} />
+            <Icon size={18} color={undefined} />
             <span>{item.label}</span>
           </NavLink>
         );

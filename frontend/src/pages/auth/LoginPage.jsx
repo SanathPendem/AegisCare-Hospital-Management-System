@@ -45,34 +45,36 @@ const LoginPage = () => {
       <div className="glass-card" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', background: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -4px rgba(15, 23, 42, 0.08)' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
-            width: '54px',
-            height: '54px',
+            width: '56px',
+            height: '56px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #2563eb 0%, #0284c7 100%)',
+            background: 'linear-gradient(135deg, #0f4c81 0%, #0284c7 100%)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 8px 24px rgba(37, 99, 235, 0.3)',
-            marginBottom: '1rem'
+            boxShadow: '0 8px 24px rgba(15, 76, 129, 0.3)',
+            marginBottom: '0.85rem'
           }}>
-            <Activity size={30} color="#fff" />
+            <Activity size={32} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a' }}>Welcome Back</h2>
-          <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.25rem' }}>
-            Sign in to access AegisCare Portal
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#0f4c81', letterSpacing: '-0.02em' }}>
+            AEGISCARE <span style={{ color: '#e11d48' }}>PORTAL</span>
+          </h2>
+          <p style={{ color: '#64748b', fontSize: '0.85rem', marginTop: '0.25rem', fontWeight: 600 }}>
+            Medical Management System Access
           </p>
         </div>
 
         {localError && (
           <div style={{
-            background: '#ffe4e6',
+            background: '#fff1f2',
             border: '1px solid #fecdd3',
             color: '#be123c',
             padding: '0.75rem 1rem',
             borderRadius: '8px',
             fontSize: '0.85rem',
             marginBottom: '1.5rem',
-            fontWeight: 600
+            fontWeight: 700
           }}>
             {localError}
           </div>
@@ -80,14 +82,14 @@ const LoginPage = () => {
 
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label className="form-label">Email Address</label>
+            <label className="form-label" style={{ fontWeight: 700, color: '#1e293b' }}>Email Address</label>
             <div style={{ position: 'relative' }}>
-              <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+              <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#0f4c81' }} />
               <input
                 type="email"
                 required
                 className="form-input"
-                style={{ width: '100%', paddingLeft: '2.5rem' }}
+                style={{ width: '100%', paddingLeft: '2.5rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}
                 placeholder="name@hospital.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -96,14 +98,14 @@ const LoginPage = () => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Password</label>
+            <label className="form-label" style={{ fontWeight: 700, color: '#1e293b' }}>Password</label>
             <div style={{ position: 'relative' }}>
-              <Key size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+              <Key size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#0f4c81' }} />
               <input
                 type="password"
                 required
                 className="form-input"
-                style={{ width: '100%', paddingLeft: '2.5rem' }}
+                style={{ width: '100%', paddingLeft: '2.5rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -115,35 +117,35 @@ const LoginPage = () => {
             type="submit"
             className="btn btn-primary"
             disabled={loading}
-            style={{ width: '100%', justifyContent: 'center', padding: '0.85rem', marginTop: '1rem' }}
+            style={{ width: '100%', justifyContent: 'center', padding: '0.85rem', marginTop: '1rem', background: '#0f4c81', borderRadius: '8px', fontWeight: 800 }}
           >
             <LogIn size={18} />
-            <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
+            <span>{loading ? 'Authenticating...' : 'Sign In to Portal'}</span>
           </button>
         </form>
 
         <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #f1f5f9' }}>
-          <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', textAlign: 'center' }}>
-            Quick Demo Auto-Fill Credentials:
+          <p style={{ fontSize: '0.75rem', color: '#0f4c81', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', textAlign: 'center' }}>
+            Quick Demo Role Login Credentials:
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-            <button type="button" onClick={() => setDemoUser('admin@hospital.com', 'admin1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.4rem' }}>
+            <button type="button" onClick={() => setDemoUser('admin@hospital.com', 'admin1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.45rem', fontWeight: 700, borderColor: '#0f4c81', color: '#0f4c81' }}>
               Admin Demo
             </button>
-            <button type="button" onClick={() => setDemoUser('doctor@hospital.com', 'doctor1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.4rem' }}>
+            <button type="button" onClick={() => setDemoUser('doctor@hospital.com', 'doctor1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.45rem', fontWeight: 700, borderColor: '#0f4c81', color: '#0f4c81' }}>
               Doctor Demo
             </button>
-            <button type="button" onClick={() => setDemoUser('patient@hospital.com', 'patient1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.4rem' }}>
+            <button type="button" onClick={() => setDemoUser('patient@hospital.com', 'patient1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.45rem', fontWeight: 700, borderColor: '#0f4c81', color: '#0f4c81' }}>
               Patient Demo
             </button>
-            <button type="button" onClick={() => setDemoUser('pharmacist@hospital.com', 'pharmacist1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.4rem' }}>
+            <button type="button" onClick={() => setDemoUser('pharmacist@hospital.com', 'pharmacist1234')} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.45rem', fontWeight: 700, borderColor: '#0f4c81', color: '#0f4c81' }}>
               Pharmacist Demo
             </button>
           </div>
         </div>
 
         <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
-          Don't have an account? <Link to="/register" style={{ color: '#2563eb', fontWeight: 700 }}>Create Patient Account</Link>
+          Don't have an account? <Link to="/register" style={{ color: '#e11d48', fontWeight: 800 }}>Create Patient Account</Link>
         </div>
       </div>
     </div>
