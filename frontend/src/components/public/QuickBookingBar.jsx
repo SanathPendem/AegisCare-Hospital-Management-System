@@ -92,14 +92,14 @@ const QuickBookingBar = () => {
 
         <form onSubmit={handleSubmit} style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr)) button',
-          gap: '0.75rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: '1rem',
           alignItems: 'center'
         }}>
           {/* Location */}
           <select
             className="form-select"
-            style={{ padding: '0.75rem 0.85rem', fontSize: '0.85rem' }}
+            style={{ height: '48px', padding: '0 1rem', fontSize: '0.9rem', borderRadius: '10px' }}
             value={formData.location}
             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
           >
@@ -111,7 +111,7 @@ const QuickBookingBar = () => {
           {/* Department */}
           <select
             className="form-select"
-            style={{ padding: '0.75rem 0.85rem', fontSize: '0.85rem' }}
+            style={{ height: '48px', padding: '0 1rem', fontSize: '0.9rem', borderRadius: '10px' }}
             value={formData.department}
             onChange={(e) => setFormData({ ...formData, department: e.target.value })}
           >
@@ -125,7 +125,7 @@ const QuickBookingBar = () => {
           {/* Doctor */}
           <select
             className="form-select"
-            style={{ padding: '0.75rem 0.85rem', fontSize: '0.85rem' }}
+            style={{ height: '48px', padding: '0 1rem', fontSize: '0.9rem', borderRadius: '10px' }}
             required
             value={formData.doctor}
             onChange={(e) => setFormData({ ...formData, doctor: e.target.value })}
@@ -142,7 +142,7 @@ const QuickBookingBar = () => {
             type="date"
             required
             className="form-input"
-            style={{ padding: '0.75rem 0.85rem', fontSize: '0.85rem' }}
+            style={{ height: '48px', padding: '0 1rem', fontSize: '0.9rem', borderRadius: '10px' }}
             min={new Date().toISOString().split('T')[0]}
             value={formData.appointment_date}
             onChange={(e) => setFormData({ ...formData, appointment_date: e.target.value })}
@@ -153,7 +153,7 @@ const QuickBookingBar = () => {
             type="email"
             required
             className="form-input"
-            style={{ padding: '0.75rem 0.85rem', fontSize: '0.85rem' }}
+            style={{ height: '48px', padding: '0 1rem', fontSize: '0.9rem', borderRadius: '10px' }}
             placeholder="Email ID"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -164,7 +164,7 @@ const QuickBookingBar = () => {
             type="tel"
             required
             className="form-input"
-            style={{ padding: '0.75rem 0.85rem', fontSize: '0.85rem' }}
+            style={{ height: '48px', padding: '0 1rem', fontSize: '0.9rem', borderRadius: '10px' }}
             placeholder="Phone Number"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -175,7 +175,7 @@ const QuickBookingBar = () => {
             type="submit"
             className="btn btn-crimson"
             disabled={submitting}
-            style={{ padding: '0.85rem 1.5rem', whiteSpace: 'nowrap', width: '100%', justifyContent: 'center' }}
+            style={{ height: '48px', padding: '0 1.5rem', whiteSpace: 'nowrap', width: '100%', justifyContent: 'center', borderRadius: '10px', fontSize: '0.9rem', fontWeight: 800 }}
           >
             {submitting ? 'BOOKING...' : 'BOOK NOW'}
           </button>

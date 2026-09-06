@@ -33,10 +33,10 @@ class PatientCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_data = validated_data.pop('user_data')
+        email = user_data.pop('email')
+        password = user_data.pop('password')
         user_data['role'] = User.Role.PATIENT
-        register_serializer = UserRegisterSerializer(data=user_data)
-        register_serializer.is_valid(raise_exception=True)
-        user = register_serializer.save()
+        user = User.objects.create_user(email=email, password=password, **user_data)
 
         patient = Patient.objects.create(user=user, **validated_data)
         return patient

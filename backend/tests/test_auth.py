@@ -50,3 +50,26 @@ def test_protected_profile_endpoint(api_client, patient_user):
     auth_resp = api_client.get(url)
     assert auth_resp.status_code == status.HTTP_200_OK
     assert auth_resp.data['email'] == user.email
+
+
+@pytest.mark.django_db
+def test_patient_endpoint_creation(api_client):
+    url = reverse('patients-list')
+    payload = {
+        "user_data": {
+            "email": "registeredpatient@hospital.com",
+            "password": "password123",
+            "password_confirm": "password123",
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "phone": "+919876543210"
+        },
+        "gender": "FEMALE",
+        "blood_group": "A+",
+        "emergency_contact_phone": "+919876512345",
+        "address": "Hyderabad"
+    }
+    response = api_client.post(url, payload, format='json')
+    assert response.status_code == status.HTTP_201_CREATED, response.data
+    assert response.data['user']['email'] == "registeredpatient@hospital.com"
+

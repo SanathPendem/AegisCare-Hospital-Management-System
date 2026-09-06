@@ -78,17 +78,17 @@ const AdminDashboard = () => {
   const recentAppts = data?.recent_appointments || [];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Operations Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-sky-900 via-sky-800 to-slate-900 text-white p-6 rounded-2xl shadow-lg border border-sky-800/40">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-gradient-to-r from-sky-900 via-sky-800 to-slate-900 text-white p-8 sm:p-10 rounded-2xl shadow-lg border border-sky-800/40">
         <div>
           <span className="text-xs font-extrabold uppercase tracking-widest text-rose-400">
             AegisCare Operations Center
           </span>
-          <h1 className="text-2xl sm:text-3xl font-black mt-1 tracking-tight">
-            Good morning, System Admin 👋
+          <h1 className="text-2xl sm:text-3xl font-black mt-1.5 tracking-tight">
+            Good morning, System Admin
           </h1>
-          <p className="text-xs sm:text-sm text-sky-200 mt-1">
+          <p className="text-xs sm:text-sm text-sky-200 mt-1.5">
             Live clinical performance, bed occupancy, and revenue summary for AegisCare Hospitals.
           </p>
         </div>
@@ -169,9 +169,9 @@ const AdminDashboard = () => {
       </div>
 
       {/* Analytics Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Revenue Growth Trend */}
-        <div className="lg:col-span-2 aegis-table-card p-6">
+        <div className="lg:col-span-2 aegis-table-card p-8">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="aegis-section-title">Hospital Revenue Growth (2026)</h3>
@@ -181,7 +181,7 @@ const AdminDashboard = () => {
               Up 14% YoY
             </span>
           </div>
-          <div className="h-64 w-full">
+          <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={revenueData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
@@ -204,11 +204,11 @@ const AdminDashboard = () => {
         </div>
 
         {/* Appointment Status Distribution */}
-        <div className="aegis-table-card p-6 flex flex-col justify-between">
+        <div className="aegis-table-card p-8 flex flex-col justify-between">
           <div>
             <h3 className="aegis-section-title">Appointment Breakdown</h3>
             <p className="aegis-page-subtitle mb-6">OPD consultation status distribution</p>
-            <div className="h-52 w-full">
+            <div className="h-56 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={statusData} layout="vertical" margin={{ top: 0, right: 10, left: 10, bottom: 0 }}>
                   <XAxis type="number" hide />
@@ -223,7 +223,7 @@ const AdminDashboard = () => {
               </ResponsiveContainer>
             </div>
           </div>
-          <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+          <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
             <span>Total Logged Today: 136</span>
             <Link to="/admin/appointments" className="text-sky-700 font-bold hover:underline">
               View Appointments →
@@ -233,7 +233,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Appointments Activity Log */}
-      <div className="aegis-table-card p-6">
+      <div className="aegis-table-card p-8">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="aegis-section-title">Recent Appointments Activity Log</h3>

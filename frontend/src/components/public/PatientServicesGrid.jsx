@@ -59,47 +59,47 @@ export default function PatientServicesGrid() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-16 bg-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-sm font-semibold tracking-wider text-sky-700 uppercase bg-sky-50 px-3 py-1 rounded-full border border-sky-100">
-            Integrated Patient Experience
+    <section className="section bg-white border-b border-slate-200">
+      <div className="section-container">
+        <div className="section-header">
+          <span className="text-xs font-extrabold tracking-widest text-sky-700 uppercase bg-sky-50 px-4 py-1.5 rounded-full border border-sky-100 shadow-xs">
+            INTEGRATED PATIENT EXPERIENCE
           </span>
-          <h2 className="mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+          <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-slate-900">
             Seamless Digital Healthcare Services
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
             Whether visiting in person or managing health remotely, AegisCare provides unified access to clinical operations.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((srv, idx) => {
             const Icon = srv.icon;
             return (
               <div
                 key={idx}
-                className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-sky-300 hover:bg-white hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                className="bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-sky-300 hover:bg-white hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-sky-700 text-white flex items-center justify-center mb-5 shadow-sm group-hover:scale-110 transition-transform">
-                    <Icon className="w-6 h-6" />
+                  <div className="w-14 h-14 rounded-2xl bg-sky-700 text-white flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
+                    <Icon className="w-7 h-7" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
                     {srv.title}
                   </h3>
-                  <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                  <p className="mt-3 text-sm text-slate-600 leading-relaxed">
                     {srv.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
+                <div className="mt-8 pt-4 border-t border-slate-200 flex items-center justify-between">
                   <button
                     onClick={() => navigate(srv.link)}
-                    className="inline-flex items-center text-sm font-bold text-sky-700 hover:text-sky-900 transition"
+                    className="inline-flex items-center text-sm font-extrabold text-sky-700 hover:text-sky-900 transition"
                   >
                     {srv.btnText}
-                    <ArrowUpRight className="ml-1 w-4 h-4" />
+                    <ArrowUpRight className="ml-1.5 w-4 h-4" />
                   </button>
                 </div>
               </div>

@@ -1,101 +1,92 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Search, ShieldCheck, Award, HeartPulse } from 'lucide-react';
+import { Calendar, Search, ShieldCheck, Award, HeartPulse, Sparkles } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <div style={{
-      background: 'linear-gradient(135deg, #092e54 0%, #0f4c81 50%, #1e3a8a 100%)',
-      color: '#ffffff',
-      padding: '4.5rem 0 5rem 0',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      {/* Background Decorative Element */}
-      <div style={{
-        position: 'absolute',
-        right: '-100px',
-        top: '-100px',
-        width: '500px',
-        height: '500px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%)',
-        pointerEvents: 'none'
-      }} />
+    <section className="section bg-gradient-to-r from-sky-950 via-sky-900 to-slate-900 text-white min-h-[480px] lg:min-h-[520px] flex items-center relative overflow-hidden border-b border-sky-900/40">
+      {/* Background Glow */}
+      <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-sky-500/10 blur-3xl pointer-events-none" />
 
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        <div style={{ maxWidth: '780px' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.12)',
-            backdropFilter: 'blur(10px)',
-            padding: '0.4rem 1rem',
-            borderRadius: '30px',
-            fontSize: '0.85rem',
-            fontWeight: 700,
-            marginBottom: '1.5rem',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
-          }}>
-            <HeartPulse size={18} color="#e11d48" />
-            <span>NABH Accredited Multi-Specialty Hospital</span>
-          </div>
+      <div className="section-container relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Text Content */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center space-x-2 bg-white/10 border border-white/20 backdrop-blur-md px-4 py-1.5 rounded-full">
+              <HeartPulse className="w-4 h-4 text-rose-400" />
+              <span className="text-xs font-extrabold uppercase tracking-widest text-slate-100">
+                NABH Accredited Multi-Specialty Hospital
+              </span>
+            </div>
 
-          <h1 style={{
-            fontSize: '3.2rem',
-            fontWeight: 900,
-            lineHeight: 1.15,
-            letterSpacing: '-0.03em',
-            marginBottom: '1.25rem',
-            textShadow: '0 4px 20px rgba(0,0,0,0.2)'
-          }}>
-            Advanced Healthcare.<br />
-            <span style={{ color: '#38bdf8' }}>Compassionate Care.</span>
-          </h1>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-white">
+              Advanced Healthcare. <br />
+              <span className="text-sky-400">Compassionate Care.</span>
+            </h1>
 
-          <p style={{
-            fontSize: '1.15rem',
-            lineHeight: 1.6,
-            color: '#e2e8f0',
-            marginBottom: '2.5rem',
-            maxWidth: '660px'
-          }}>
-            Modern medical care powered by experienced board-certified specialists, state-of-the-art diagnostic technology, and patient-first service available 24 hours a day.
-          </p>
+            <p className="text-lg sm:text-xl text-slate-200 leading-relaxed font-normal max-w-xl">
+              Modern medical care powered by experienced board-certified specialists, state-of-the-art diagnostic technology, and patient-first service available 24 hours a day.
+            </p>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link to="/book-appointment" className="btn btn-crimson" style={{ padding: '0.9rem 2rem', fontSize: '0.95rem', borderRadius: '8px' }}>
-              <Calendar size={18} />
-              <span>BOOK AN APPOINTMENT</span>
-            </Link>
+            <div className="pt-2 flex flex-wrap gap-4">
+              <Link
+                to="/book-appointment"
+                className="px-8 h-13 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-xl shadow-lg hover:shadow-rose-600/30 transition flex items-center justify-center text-sm"
+              >
+                <Calendar className="w-4 h-4 mr-2" />
+                BOOK AN APPOINTMENT
+              </Link>
 
-            <Link to="/doctors" className="btn btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '0.95rem', borderRadius: '8px', background: 'rgba(255,255,255,0.15)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.3)' }}>
-              <Search size={18} />
-              <span>FIND A DOCTOR</span>
-            </Link>
-          </div>
+              <Link
+                to="/doctors"
+                className="px-8 h-13 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 transition flex items-center justify-center text-sm"
+              >
+                <Search className="w-4 h-4 mr-2" />
+                FIND A DOCTOR
+              </Link>
+            </div>
 
-          {/* Trust Indicators */}
-          <div style={{ display: 'flex', gap: '2.5rem', marginTop: '3.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <ShieldCheck size={26} color="#38bdf8" />
-              <div>
-                <strong style={{ display: 'block', fontSize: '1rem' }}>24/7 Emergency</strong>
-                <span style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>Trauma & Critical Care</span>
+            {/* Trust Indicators */}
+            <div className="pt-8 border-t border-white/15 flex flex-wrap gap-8">
+              <div className="flex items-center space-x-3">
+                <ShieldCheck className="w-7 h-7 text-sky-400 shrink-0" />
+                <div>
+                  <strong className="block text-white text-base font-extrabold">24/7 Emergency</strong>
+                  <span className="text-xs text-slate-300">Trauma & Critical Care</span>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Award className="w-7 h-7 text-sky-400 shrink-0" />
+                <div>
+                  <strong className="block text-white text-base font-extrabold">50+ Specialists</strong>
+                  <span className="text-xs text-slate-300">Across 15 Departments</span>
+                </div>
               </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <Award size={26} color="#38bdf8" />
-              <div>
-                <strong style={{ display: 'block', fontSize: '1rem' }}>50+ Specialists</strong>
-                <span style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>Across 15 Departments</span>
+          </div>
+
+          {/* Right Column: Hero Visual */}
+          <div className="relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/15">
+              <img
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=900"
+                alt="AegisCare Advanced Hospital Care"
+                className="w-full h-[400px] lg:h-[460px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+              
+              <div className="absolute bottom-6 left-6 right-6 p-6 bg-slate-900/80 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-bold text-sky-400 uppercase tracking-wider">Level 1 Trauma Center</span>
+                  <p className="text-lg font-black text-white mt-0.5">24/7 Rapid Emergency Response</p>
+                </div>
+                <ShieldCheck className="w-8 h-8 text-emerald-400 shrink-0" />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

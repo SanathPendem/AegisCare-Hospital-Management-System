@@ -9,7 +9,7 @@ export default function Breadcrumbs() {
   if (pathnames.length === 0) return null;
 
   return (
-    <nav className="flex items-center space-x-2 text-xs font-semibold text-slate-500 mb-4 px-8 pt-4">
+    <nav className="flex items-center space-x-2 text-xs font-semibold text-slate-500 mb-2 px-10 pt-6">
       <Link to="/" className="hover:text-sky-700 flex items-center transition">
         <Home size={14} className="mr-1" />
         Home

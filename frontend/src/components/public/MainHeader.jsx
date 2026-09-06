@@ -18,51 +18,51 @@ const MainHeader = () => {
   };
 
   return (
-    <div style={{ background: '#ffffff', padding: '1.25rem 0', borderBottom: '1px solid #e2e8f0' }}>
+    <div style={{ background: '#ffffff', padding: '1.75rem 0', borderBottom: '1px solid #e2e8f0' }}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Brand Logo */}
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', textDecoration: 'none' }}>
+        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '1.125rem', textDecoration: 'none' }}>
           <div style={{
-            width: '46px',
-            height: '46px',
-            borderRadius: '12px',
+            width: '52px',
+            height: '52px',
+            borderRadius: '14px',
             background: 'linear-gradient(135deg, #0f4c81 0%, #0284c7 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 6px 18px rgba(15, 76, 129, 0.3)'
+            boxShadow: '0 8px 20px rgba(15, 76, 129, 0.3)'
           }}>
-            <Activity size={28} color="#ffffff" />
+            <Activity size={32} color="#ffffff" />
           </div>
           <div>
-            <span style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0f4c81', letterSpacing: '-0.02em', display: 'block', lineHeight: 1.1 }}>
+            <span style={{ fontSize: '1.85rem', fontWeight: 900, color: '#0f4c81', letterSpacing: '-0.025em', display: 'block', lineHeight: 1.1 }}>
               AEGISCARE
             </span>
-            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#64748b', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.725rem', fontWeight: 800, color: '#64748b', letterSpacing: '0.22em', textTransform: 'uppercase', marginTop: '0.2rem', display: 'block' }}>
               HEALTHCARE SYSTEM
             </span>
           </div>
         </a>
 
         {/* Contact & Request Callback */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <PhoneCall size={20} color="#0f4c81" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <PhoneCall size={22} color="#0f4c81" />
             </div>
             <div>
-              <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>Need Help?</p>
-              <p style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a' }}>+91 040 4488 5000</p>
+              <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>24/7 Helpline</p>
+              <p style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a', marginTop: '0.1rem' }}>+91 040 4488 5000</p>
             </div>
           </div>
 
           <button
             onClick={() => setIsCallbackOpen(true)}
-            className="btn btn-secondary"
-            style={{ padding: '0.75rem 1.25rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, borderColor: '#0f4c81', color: '#0f4c81' }}
+            className="aegis-btn aegis-btn-secondary"
+            style={{ height: '50px', padding: '0 1.5rem', borderRadius: '12px', fontSize: '0.9375rem', fontWeight: 700, borderColor: '#0f4c81', color: '#0f4c81' }}
           >
             <span>Request a Callback</span>
-            <ChevronDown size={16} />
+            <ChevronDown size={18} />
           </button>
         </div>
       </div>

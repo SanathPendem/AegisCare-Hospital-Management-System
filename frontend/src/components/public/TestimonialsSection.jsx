@@ -27,47 +27,47 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-16 bg-slate-50 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-sm font-semibold tracking-wider text-emerald-700 uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+    <section className="py-20 bg-slate-50 border-b border-slate-200">
+      <div className="container">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <span className="text-sm font-bold tracking-wider text-emerald-700 uppercase bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100 shadow-sm">
             Patient Stories & Feedback
           </span>
-          <h2 className="mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+          <h2 className="mt-4 text-3xl font-extrabold text-slate-900 sm:text-4xl">
             Trusted by Thousands of Families
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
             Real stories from real patients who experienced healing and compassionate care at AegisCare.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between"
+              className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-400">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex text-amber-400 gap-1">
                     {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 stroke-amber-400" />
+                      <Star key={i} className="w-5 h-5 fill-amber-400 stroke-amber-400" />
                     ))}
                   </div>
-                  <Quote className="w-8 h-8 text-sky-200" />
+                  <Quote className="w-10 h-10 text-sky-200" />
                 </div>
-                <p className="text-slate-700 text-sm leading-relaxed italic">
+                <p className="text-slate-700 text-base leading-relaxed italic">
                   "{t.content}"
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div className="mt-8 pt-5 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <h4 className="text-base font-bold text-slate-900 flex items-center">
+                  <h4 className="text-lg font-extrabold text-slate-900 flex items-center">
                     {t.name}
-                    <CheckCircle className="w-4 h-4 text-emerald-500 ml-1.5 shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-emerald-500 ml-2 shrink-0" />
                   </h4>
-                  <p className="text-xs text-slate-500 font-medium">
+                  <p className="text-xs text-slate-500 font-semibold mt-0.5">
                     {t.role} • {t.location}
                   </p>
                 </div>

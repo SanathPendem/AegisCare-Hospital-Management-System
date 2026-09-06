@@ -20,13 +20,13 @@ const Navbar = () => {
 
   return (
     <header style={{
-      height: '72px',
+      height: '76px',
       background: '#ffffff',
       borderBottom: '1px solid #e2e8f0',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0 2rem',
+      padding: '0 3.5rem',
       position: 'sticky',
       top: 0,
       zIndex: 100,
@@ -60,12 +60,13 @@ const Navbar = () => {
       </div>
 
       {/* Global Search Bar */}
-      <div className="hidden md:flex items-center relative w-72 lg:w-96">
-        <Search size={16} className="text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+      <div className="hidden md:flex items-center relative flex-1 max-w-3xl mx-8">
+        <Search size={18} className="text-slate-400 absolute" style={{ left: '1.25rem', top: '50%', transform: 'translateY(-50%)', zIndex: 10, pointerEvents: 'none' }} />
         <input
           type="text"
-          placeholder="Global search (patients, doctors, records...)"
-          className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-sky-600 focus:border-sky-600 outline-none transition"
+          placeholder="Search patients, doctors, medical records, or beds..."
+          style={{ paddingLeft: '3.5rem', height: '48px' }}
+          className="w-full pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-sky-600 focus:border-sky-600 outline-none transition shadow-2xs"
         />
       </div>
 

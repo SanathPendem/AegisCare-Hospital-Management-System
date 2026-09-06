@@ -14,7 +14,7 @@ const DashboardLayout = () => {
           <Sidebar />
           <main className="main-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
             <Breadcrumbs />
-            <div style={{ flex: 1, padding: '0 2rem 2rem 2rem' }}>
+            <div style={{ flex: 1, padding: '1rem 2.5rem 3rem 2.5rem' }}>
               <Outlet />
             </div>
           </main>

@@ -101,7 +101,7 @@ const AdminPatients = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -364,32 +364,32 @@ const AdminPatients = () => {
 
       {/* Modal for Registering New Patient */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Register New Patient EMR Profile">
-        <form onSubmit={handleRegister} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleRegister} className="space-y-6">
+          <div className="grid grid-cols-2 gap-6">
             <div className="form-group">
-              <label className="form-label">First Name *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">First Name *</label>
               <input type="text" required className="aegis-input" value={formData.user_data.first_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, first_name: e.target.value } })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Last Name *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Last Name *</label>
               <input type="text" required className="aegis-input" value={formData.user_data.last_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, last_name: e.target.value } })} />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div className="form-group">
-              <label className="form-label">Email Address *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Email Address *</label>
               <input type="email" required className="aegis-input" value={formData.user_data.email} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, email: e.target.value } })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Phone Number</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Phone Number</label>
               <input type="text" className="aegis-input" value={formData.user_data.phone} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, phone: e.target.value } })} />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div className="form-group">
-              <label className="form-label">Gender</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Gender</label>
               <select className="aegis-select w-full" value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })}>
                 <option value="MALE">Male</option>
                 <option value="FEMALE">Female</option>
@@ -397,7 +397,7 @@ const AdminPatients = () => {
               </select>
             </div>
             <div className="form-group">
-              <label className="form-label">Blood Group</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Blood Group</label>
               <select className="aegis-select w-full" value={formData.blood_group} onChange={(e) => setFormData({ ...formData, blood_group: e.target.value })}>
                 <option value="A+">A+</option>
                 <option value="B+">B+</option>
@@ -411,18 +411,18 @@ const AdminPatients = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div className="form-group">
-              <label className="form-label">Emergency Phone</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Emergency Phone</label>
               <input type="text" className="aegis-input" value={formData.emergency_contact_phone} onChange={(e) => setFormData({ ...formData, emergency_contact_phone: e.target.value })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Address</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Address</label>
               <input type="text" className="aegis-input" value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
             </div>
           </div>
 
-          <button type="submit" className="aegis-btn aegis-btn-primary w-full justify-center">
+          <button type="submit" className="aegis-btn aegis-btn-primary w-full justify-center mt-2">
             Register Patient Profile
           </button>
         </form>

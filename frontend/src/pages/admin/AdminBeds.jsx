@@ -43,15 +43,15 @@ const AdminBeds = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="aegis-page-title">Inpatient Wards & Bed Occupancy</h1>
           <p className="aegis-page-subtitle">Real-time ICU, General Ward, Deluxe Suite occupancy monitoring and discharge workflow.</p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => addToast('Admit patient dialog opened...', 'info')}
             className="aegis-btn aegis-btn-primary"
@@ -64,7 +64,7 @@ const AdminBeds = () => {
 
       {/* Ward Occupancy Cards (4-Column Grid on Desktop) */}
       <div>
-        <h2 className="aegis-section-title mb-4">Ward Capacity Summary</h2>
+        <h2 className="aegis-section-title mb-6">Ward Capacity Summary</h2>
         {loading ? (
           <div className="aegis-kpi-grid">
             {[1, 2, 3, 4].map((i) => <CardSkeleton key={i} />)}
@@ -112,7 +112,7 @@ const AdminBeds = () => {
       </div>
 
       {/* Active Inpatient Admissions Table */}
-      <div className="aegis-table-card p-6">
+      <div className="aegis-table-card p-8">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="aegis-section-title">Active Inpatient Admissions</h3>

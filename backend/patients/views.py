@@ -27,6 +27,14 @@ class PatientViewSet(viewsets.ModelViewSet):
             return PatientCreateSerializer
         return PatientSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        patient = serializer.save()
+        read_serializer = PatientSerializer(patient)
+        headers = self.get_success_headers(read_serializer.data)
+        return Response(read_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     @action(detail=False, methods=['get', 'patch', 'put'], permission_classes=[permissions.IsAuthenticated])
     def me(self, request):
         patient, created = Patient.objects.get_or_create(user=request.user)

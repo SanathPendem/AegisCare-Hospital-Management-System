@@ -71,7 +71,7 @@ const AdminDoctors = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -250,56 +250,56 @@ const AdminDoctors = () => {
 
       {/* Add Doctor Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Register Physician Doctor Profile">
-        <form onSubmit={handleCreate} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleCreate} className="space-y-6">
+          <div className="grid grid-cols-2 gap-6">
             <div className="form-group">
-              <label className="form-label">First Name *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">First Name *</label>
               <input type="text" required className="aegis-input" value={formData.user_data.first_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, first_name: e.target.value } })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Last Name *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Last Name *</label>
               <input type="text" required className="aegis-input" value={formData.user_data.last_name} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, last_name: e.target.value } })} />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div className="form-group">
-              <label className="form-label">Email Address *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Email Address *</label>
               <input type="email" required className="aegis-input" value={formData.user_data.email} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, email: e.target.value } })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Phone Number</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Phone Number</label>
               <input type="text" className="aegis-input" value={formData.user_data.phone} onChange={(e) => setFormData({ ...formData, user_data: { ...formData.user_data, phone: e.target.value } })} />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div className="form-group">
-              <label className="form-label">Specialization *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Specialization *</label>
               <input type="text" required className="aegis-input" value={formData.specialization} onChange={(e) => setFormData({ ...formData, specialization: e.target.value })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Department *</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Department *</label>
               <input type="text" required className="aegis-input" value={formData.department} onChange={(e) => setFormData({ ...formData, department: e.target.value })} />
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-6">
             <div className="form-group">
-              <label className="form-label">Qualifications</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Qualifications</label>
               <input type="text" required className="aegis-input" value={formData.qualification} onChange={(e) => setFormData({ ...formData, qualification: e.target.value })} />
             </div>
             <div className="form-group">
-              <label className="form-label">License #</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">License #</label>
               <input type="text" required className="aegis-input" value={formData.license_number} onChange={(e) => setFormData({ ...formData, license_number: e.target.value })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Fee (₹)</label>
+              <label className="form-label block mb-1.5 font-bold text-xs uppercase tracking-wider text-slate-600">Fee (₹)</label>
               <input type="number" required className="aegis-input" value={formData.consultation_fee} onChange={(e) => setFormData({ ...formData, consultation_fee: parseFloat(e.target.value) })} />
             </div>
           </div>
 
-          <button type="submit" className="aegis-btn aegis-btn-primary w-full justify-center">
+          <button type="submit" className="aegis-btn aegis-btn-primary w-full justify-center mt-2">
             Register Doctor Profile
           </button>
         </form>

@@ -91,45 +91,45 @@ export default function DepartmentCards() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-16 bg-slate-50 border-b border-slate-200">
-      <div className="max-w-7xl mx-mx-auto px-4 sm:px-6 lg:px-8 mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-sm font-semibold tracking-wider text-rose-600 uppercase bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
-            Center of Excellence
+    <section className="section bg-slate-50 border-b border-slate-200">
+      <div className="section-container">
+        <div className="section-header">
+          <span className="text-xs font-extrabold tracking-widest text-rose-600 uppercase bg-rose-50 px-4 py-1.5 rounded-full border border-rose-100 shadow-xs">
+            CENTER OF EXCELLENCE
           </span>
-          <h2 className="mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+          <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-slate-900">
             World-Class Clinical Specialties
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
             AegisCare brings together renowned medical experts, cutting-edge surgical technology, and compassionate patient care.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {departments.map((dept) => {
             const Icon = dept.icon;
             return (
               <div
                 key={dept.id}
                 onClick={() => navigate(`/departments?dept=${dept.id}`)}
-                className="group relative bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-sky-300 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                className="group relative bg-white rounded-3xl p-8 shadow-sm border border-slate-200 hover:shadow-xl hover:border-sky-300 transition-all duration-300 cursor-pointer flex flex-col justify-between"
               >
                 <div>
-                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center border transition-colors duration-300 ${dept.color} ${dept.hoverBg} mb-5`}>
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border transition-colors duration-300 ${dept.color} ${dept.hoverBg} mb-6`}>
                     <Icon className="w-7 h-7" />
                   </div>
-                  <span className="inline-block text-xs font-semibold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-full mb-2">
+                  <span className="inline-block text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full mb-3 border border-sky-100">
                     {dept.doctorsCount}
                   </span>
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
                     {dept.name}
                   </h3>
-                  <p className="mt-2 text-sm text-slate-600 leading-relaxed line-clamp-3">
+                  <p className="mt-3 text-sm text-slate-600 leading-relaxed line-clamp-3">
                     {dept.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-medium text-sky-700 group-hover:text-sky-800">
+                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-bold text-sky-700 group-hover:text-sky-800">
                   <span>Explore Department</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -138,10 +138,10 @@ export default function DepartmentCards() {
           })}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-14 text-center">
           <button
             onClick={() => navigate('/departments')}
-            className="inline-flex items-center px-6 py-3 border border-sky-700 text-base font-semibold rounded-md text-sky-700 bg-white hover:bg-sky-50 shadow-sm transition"
+            className="inline-flex items-center px-8 h-13 border-2 border-sky-700 text-base font-extrabold rounded-xl text-sky-700 bg-white hover:bg-sky-50 shadow-md transition"
           >
             View All Departments & Medical Services
             <ArrowRight className="ml-2 w-5 h-5" />
