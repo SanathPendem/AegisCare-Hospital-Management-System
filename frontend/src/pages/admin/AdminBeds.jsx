@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import Badge from '../../components/Badge';
-import Modal from '../../components/Modal';
-import { Bed, Plus, CheckCircle2, UserCheck, UserMinus } from 'lucide-react';
+import EmptyState from '../../components/common/EmptyState';
+import { CardSkeleton, TableSkeleton } from '../../components/common/Skeleton';
+import { useToast } from '../../context/ToastContext';
+import { Bed, CheckCircle2, UserMinus, HeartPulse, ShieldCheck, Activity } from 'lucide-react';
 
 const AdminBeds = () => {
   const [wards, setWards] = useState([]);
   const [beds, setBeds] = useState([]);
   const [admissions, setAdmissions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { addToast } = useToast();
 
   useEffect(() => {
     fetchData();
@@ -24,6 +27,7 @@ const AdminBeds = () => {
       setAdmissions(aRes.data.results || aRes.data);
     } catch (err) {
       console.error(err);
+      addToast('Failed to load bed occupancy data', 'error');
     } finally {
       setLoading(false);
     }
@@ -32,76 +36,126 @@ const AdminBeds = () => {
   const handleDischarge = async (id) => {
     try {
       await api.post(`/beds/admissions/${id}/discharge/`);
-      alert('Patient discharged! Bed status reset to AVAILABLE.');
+      addToast('Patient discharged! Bed status reset to AVAILABLE.', 'success');
       fetchData();
     } catch (err) {
-      alert('Discharge failed.');
+      addToast('Discharge processing failed.', 'error');
     }
   };
 
   return (
-    <div>
-      <div className="page-header">
-        <div>
-          <h1 className="page-title">Inpatient Ward & Bed Management</h1>
-          <p className="page-subtitle">Track hospital bed occupancy, ICU allocations, daily rates, and patient admissions</p>
+    <div className="space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl font-black text-slate-900 tracking-tight">Inpatient Wards & Bed Occupancy</h1>
+        <p className="text-xs text-slate-500 mt-0.5">Real-time ICU, General Ward, Deluxe Suite occupancy monitoring and discharge workflow</p>
+      </div>
+
+      {/* Ward Occupancy Cards */}
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map((i) => <CardSkeleton key={i} />)}
         </div>
-      </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {wards.map((w) => {
+            const occupied = w.total_beds - w.available_beds;
+            const occupancyPct = Math.round((occupied / (w.total_beds || 1)) * 100);
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-        {wards.map((w) => (
-          <div key={w.id} className="glass-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>{w.name}</h3>
-              <span style={{ fontSize: '0.8rem', color: '#059669', background: '#d1fae5', padding: '0.2rem 0.6rem', borderRadius: '12px', fontWeight: 700 }}>
-                ${w.daily_rate}/day
-              </span>
-            </div>
-            <p style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '1rem' }}>Location: {w.floor}</p>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', fontWeight: 600 }}>
-              <span>Total Capacity: {w.total_beds} beds</span>
-              <span style={{ color: '#2563eb' }}>Available: {w.available_beds} beds</span>
-            </div>
-          </div>
-        ))}
-      </div>
+            return (
+              <div key={w.id} className="glass-card flex flex-col justify-between space-y-4">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold text-slate-900 text-base">{w.name}</h3>
+                    <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                      ₹{w.daily_rate}/day
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">Location: {w.floor}</p>
+                </div>
 
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs font-bold">
+                    <span className="text-slate-600">Occupancy: {occupancyPct}%</span>
+                    <span className="text-sky-800">{w.available_beds} Available</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full transition-all duration-500 ${occupancyPct > 85 ? 'bg-rose-600' : occupancyPct > 60 ? 'bg-amber-500' : 'bg-sky-600'}`}
+                      style={{ width: `${occupancyPct}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-semibold">
+                  <span>Capacity: {w.total_beds} Beds</span>
+                  <span>Occupied: {occupied} Beds</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Active Inpatient Admissions */}
       <div className="glass-card">
-        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '1.25rem' }}>Active Patient Inpatient Admissions</h3>
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h3 className="text-base font-bold text-slate-900">Active Patient Inpatient Admissions</h3>
+            <p className="text-xs text-slate-500">Live bed assignments and medical discharge queue</p>
+          </div>
+        </div>
+
         {loading ? (
-          <div style={{ color: '#94a3b8' }}>Loading bed occupancy...</div>
+          <TableSkeleton rows={5} cols={6} />
         ) : admissions.length === 0 ? (
-          <p style={{ color: '#94a3b8', textAlign: 'center', padding: '2rem' }}>No patients currently admitted.</p>
+          <EmptyState
+            title="No active admissions"
+            description="There are currently no patients admitted to hospital wards."
+          />
         ) : (
           <div className="data-table-container">
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Patient</th>
+                  <th>Patient Name</th>
                   <th>Ward & Bed #</th>
                   <th>Admitted Date</th>
-                  <th>Reason</th>
+                  <th>Clinical Reason</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th className="text-right">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {admissions.map((adm) => (
-                  <tr key={adm.id}>
-                    <td style={{ fontWeight: 600 }}>{adm.patient_detail?.user?.full_name || 'Patient'}</td>
-                    <td style={{ fontWeight: 700, color: '#0284c7' }}>
-                      {adm.bed_detail?.ward_name} ({adm.bed_detail?.bed_number})
-                    </td>
-                    <td>{new Date(adm.admitted_at).toLocaleDateString()}</td>
-                    <td>{adm.reason || '-'}</td>
-                    <td><Badge status={adm.status === 'ADMITTED' ? 'PENDING' : 'CONFIRMED'} /></td>
+                  <tr key={adm.id} className="hover:bg-slate-50">
+                    <td style={{ fontWeight: 700, color: '#0f172a' }}>{adm.patient_detail?.user?.full_name || 'Admitted Patient'}</td>
                     <td>
+                      <span className="inline-flex items-center text-xs font-bold text-sky-800 bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
+                        <Bed size={12} className="mr-1" />
+                        {adm.bed_detail?.ward_name} ({adm.bed_detail?.bed_number})
+                      </span>
+                    </td>
+                    <td className="text-xs text-slate-600">{new Date(adm.admitted_at).toLocaleDateString()}</td>
+                    <td className="text-xs text-slate-700">{adm.reason || 'General Observation'}</td>
+                    <td>
+                      <span className={`inline-flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full ${adm.status === 'ADMITTED' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}`}>
+                        {adm.status}
+                      </span>
+                    </td>
+                    <td className="text-right">
                       {adm.status === 'ADMITTED' ? (
-                        <button onClick={() => handleDischarge(adm.id)} className="btn btn-emerald" style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}>
-                          <UserMinus size={14} /> Discharge Patient
+                        <button
+                          onClick={() => handleDischarge(adm.id)}
+                          className="inline-flex items-center px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-xs"
+                        >
+                          <UserMinus size={13} className="mr-1" />
+                          Discharge Patient
                         </button>
                       ) : (
-                        <span style={{ color: '#059669', fontSize: '0.85rem' }}>Discharged</span>
+                        <span className="text-xs font-bold text-emerald-600 flex items-center justify-end">
+                          <CheckCircle2 size={13} className="mr-1" /> Discharged
+                        </span>
                       )}
                     </td>
                   </tr>
