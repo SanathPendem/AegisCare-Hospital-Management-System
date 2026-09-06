@@ -11,8 +11,7 @@ import {
   Users,
   Stethoscope,
   Package,
-  BarChart3,
-  ShieldAlert
+  BarChart3
 } from 'lucide-react';
 
 const Sidebar = () => {
@@ -61,15 +60,14 @@ const Sidebar = () => {
   return (
     <aside style={{
       width: '260px',
-      background: 'rgba(15, 23, 42, 0.7)',
-      backdropFilter: 'blur(16px)',
-      borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+      background: '#ffffff',
+      borderRight: '1px solid #e2e8f0',
       padding: '1.5rem 1rem',
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.5rem'
+      gap: '0.35rem'
     }}>
-      <div style={{ padding: '0 0.75rem 1rem 0.75rem', color: '#64748b', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+      <div style={{ padding: '0 0.75rem 0.75rem 0.75rem', color: '#94a3b8', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
         Main Menu
       </div>
 
@@ -85,12 +83,12 @@ const Sidebar = () => {
               gap: '0.85rem',
               padding: '0.75rem 1rem',
               borderRadius: '10px',
-              fontWeight: 600,
+              fontWeight: isActive ? 700 : 600,
               fontSize: '0.9rem',
-              transition: 'all 0.2s ease',
-              color: isActive ? '#ffffff' : '#94a3b8',
-              background: isActive ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%)' : 'transparent',
-              border: isActive ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid transparent'
+              transition: 'all 0.15s ease-in-out',
+              color: isActive ? '#2563eb' : '#475569',
+              background: isActive ? '#eff6ff' : 'transparent',
+              borderLeft: isActive ? '3px solid #2563eb' : '3px solid transparent'
             })}
           >
             <Icon size={18} />

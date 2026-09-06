@@ -39,38 +39,40 @@ const LoginPage = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '2rem'
+      padding: '2rem',
+      backgroundColor: '#f8fafc'
     }}>
-      <div className="glass-card" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem' }}>
+      <div className="glass-card" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', background: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -4px rgba(15, 23, 42, 0.08)' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
             width: '54px',
             height: '54px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)',
+            background: 'linear-gradient(135deg, #2563eb 0%, #0284c7 100%)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 8px 24px rgba(59, 130, 246, 0.4)',
+            boxShadow: '0 8px 24px rgba(37, 99, 235, 0.3)',
             marginBottom: '1rem'
           }}>
             <Activity size={30} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 800 }}>Welcome Back</h2>
-          <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginTop: '0.25rem' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a' }}>Welcome Back</h2>
+          <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.25rem' }}>
             Sign in to access AegisCare Portal
           </p>
         </div>
 
         {localError && (
           <div style={{
-            background: 'rgba(239, 68, 68, 0.15)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            color: '#fca5a5',
+            background: '#ffe4e6',
+            border: '1px solid #fecdd3',
+            color: '#be123c',
             padding: '0.75rem 1rem',
             borderRadius: '8px',
             fontSize: '0.85rem',
-            marginBottom: '1.5rem'
+            marginBottom: '1.5rem',
+            fontWeight: 600
           }}>
             {localError}
           </div>
@@ -80,7 +82,7 @@ const LoginPage = () => {
           <div className="form-group">
             <label className="form-label">Email Address</label>
             <div style={{ position: 'relative' }}>
-              <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} />
+              <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
               <input
                 type="email"
                 required
@@ -96,7 +98,7 @@ const LoginPage = () => {
           <div className="form-group">
             <label className="form-label">Password</label>
             <div style={{ position: 'relative' }}>
-              <Key size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} />
+              <Key size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
               <input
                 type="password"
                 required
@@ -120,8 +122,8 @@ const LoginPage = () => {
           </button>
         </form>
 
-        <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-          <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', textAlign: 'center' }}>
+        <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #f1f5f9' }}>
+          <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', textAlign: 'center' }}>
             Quick Demo Auto-Fill Credentials:
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
@@ -140,8 +142,8 @@ const LoginPage = () => {
           </div>
         </div>
 
-        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#94a3b8' }}>
-          Don't have an account? <Link to="/register" style={{ color: '#3b82f6', fontWeight: 600 }}>Create Patient Account</Link>
+        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
+          Don't have an account? <Link to="/register" style={{ color: '#2563eb', fontWeight: 700 }}>Create Patient Account</Link>
         </div>
       </div>
     </div>
