@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Activity, LogOut, PhoneCall, ShieldCheck } from 'lucide-react';
+import { Activity, LogOut, PhoneCall, Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import NotificationDropdown from './common/NotificationDropdown';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -58,16 +59,28 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Center Emergency Badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', background: '#fff1f2', padding: '0.4rem 1rem', borderRadius: '30px', border: '1px solid #fecdd3' }}>
-        <PhoneCall size={16} color="#e11d48" />
-        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#9f1239' }}>
-          24/7 HELPLINE: <span style={{ color: '#e11d48' }}>+91 040 4488 5000</span>
-        </span>
+      {/* Global Search Bar */}
+      <div className="hidden md:flex items-center relative w-72 lg:w-96">
+        <Search size={16} className="text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+        <input
+          type="text"
+          placeholder="Global search (patients, doctors, records...)"
+          className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-sky-600 focus:border-sky-600 outline-none transition"
+        />
       </div>
 
-      {/* Right User & Logout */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+      {/* Right User & Controls */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {/* Notification Bell */}
+        <NotificationDropdown />
+
+        {/* Helpline Pill */}
+        <div className="hidden lg:flex items-center space-x-2 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-full text-xs">
+          <PhoneCall size={14} className="text-rose-600" />
+          <span className="font-extrabold text-rose-900">+91 040 4488 5000</span>
+        </div>
+
+        {/* User Pill */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: '#f8fafc', padding: '0.4rem 0.85rem', borderRadius: '30px', border: '1px solid #e2e8f0' }}>
           <div style={{
             width: '34px',

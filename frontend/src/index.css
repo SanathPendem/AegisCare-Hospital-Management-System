@@ -313,3 +313,95 @@ a {
   padding-right: 0.75rem;
   background: #be123c;
 }
+
+/* Skeleton Loading Shimmer */
+.skeleton {
+  background: #e2e8f0;
+  background: linear-gradient(110deg, #eceff1 8%, #f5f7fa 18%, #eceff1 33%);
+  border-radius: 6px;
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+/* Slide Drawer Overlay */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1050;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer-content {
+  background: #ffffff;
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  box-shadow: -10px 0 30px rgba(15, 23, 42, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.25s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Action Menu Dropdown */
+.action-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.action-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.25rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12);
+  z-index: 100;
+  min-width: 160px;
+  padding: 0.35rem 0;
+}
+
+.action-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.action-dropdown-item:hover {
+  background: #f1f5f9;
+  color: #0f4c81;
+}
+
+.action-dropdown-item.danger:hover {
+  background: #fff1f2;
+  color: #e11d48;
+}
