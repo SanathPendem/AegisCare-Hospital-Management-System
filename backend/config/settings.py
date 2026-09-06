@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'billing.apps.BillingConfig',
     'notifications.apps.NotificationsConfig',
     'dashboard.apps.DashboardConfig',
+    'beds.apps.BedsConfig',
+    'lab_tests.apps.LabTestsConfig',
 ]
 
 MIDDLEWARE = [

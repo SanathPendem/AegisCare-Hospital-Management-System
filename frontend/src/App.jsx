@@ -42,6 +42,10 @@ import AdminAppointments from './pages/admin/AdminAppointments';
 import AdminMedicines from './pages/admin/AdminMedicines';
 import AdminReports from './pages/admin/AdminReports';
 
+// Additional Enterprise Pages
+import AdminBeds from './pages/admin/AdminBeds';
+import DoctorLabTests from './pages/doctor/DoctorLabTests';
+
 function App() {
   return (
     <AuthProvider>
@@ -70,6 +74,7 @@ function App() {
               <Route path="/doctor/patients" element={<DoctorPatients />} />
               <Route path="/doctor/medical-records" element={<DoctorMedicalRecords />} />
               <Route path="/doctor/prescriptions" element={<DoctorPrescriptions />} />
+              <Route path="/doctor/lab-tests" element={<DoctorLabTests />} />
             </Route>
 
             {/* Receptionist Routes */}
@@ -93,6 +98,7 @@ function App() {
               <Route path="/admin/doctors" element={<AdminDoctors />} />
               <Route path="/admin/patients" element={<AdminPatients />} />
               <Route path="/admin/appointments" element={<AdminAppointments />} />
+              <Route path="/admin/beds" element={<AdminBeds />} />
               <Route path="/admin/medicines" element={<AdminMedicines />} />
               <Route path="/admin/reports" element={<AdminReports />} />
             </Route>

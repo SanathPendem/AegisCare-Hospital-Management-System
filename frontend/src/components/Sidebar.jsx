@@ -11,7 +11,9 @@ import {
   Users,
   Stethoscope,
   Package,
-  BarChart3
+  BarChart3,
+  Bed,
+  FlaskConical
 } from 'lucide-react';
 
 const Sidebar = () => {
@@ -33,6 +35,7 @@ const Sidebar = () => {
       { to: '/doctor/patients', label: 'Patient Directory', icon: Users },
       { to: '/doctor/medical-records', label: 'Medical Records', icon: FileText },
       { to: '/doctor/prescriptions', label: 'Prescriptions', icon: Pill },
+      { to: '/doctor/lab-tests', label: 'Lab & Diagnostics', icon: FlaskConical },
     ],
     RECEPTIONIST: [
       { to: '/receptionist/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -50,6 +53,7 @@ const Sidebar = () => {
       { to: '/admin/doctors', label: 'Doctors', icon: Stethoscope },
       { to: '/admin/patients', label: 'Patients', icon: User },
       { to: '/admin/appointments', label: 'Appointments', icon: Calendar },
+      { to: '/admin/beds', label: 'Wards & Bed Occupancy', icon: Bed },
       { to: '/admin/medicines', label: 'Medicine Inventory', icon: Package },
       { to: '/admin/reports', label: 'Analytics & Reports', icon: BarChart3 },
     ]

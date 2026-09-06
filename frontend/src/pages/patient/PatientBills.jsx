@@ -75,19 +75,30 @@ const PatientBills = () => {
                     <td style={{ fontWeight: 800, color: '#f8fafc', fontSize: '1rem' }}>${bill.final_amount}</td>
                     <td><Badge status={bill.status} /></td>
                     <td>
-                      {bill.status !== 'PAID' ? (
-                        <button
-                          onClick={() => { setSelectedBill(bill); setPaymentSuccess(null); }}
-                          className="btn btn-emerald"
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        {bill.status !== 'PAID' ? (
+                          <button
+                            onClick={() => { setSelectedBill(bill); setPaymentSuccess(null); }}
+                            className="btn btn-emerald"
+                            style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
+                          >
+                            <CreditCard size={14} /> Pay Now
+                          </button>
+                        ) : (
+                          <span style={{ color: '#059669', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                            <CheckCircle2 size={16} /> Paid
+                          </span>
+                        )}
+                        <a
+                          href={`http://127.0.0.1:8000/api/v1/billing/${bill.id}/print_invoice/`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="btn btn-secondary"
                           style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
                         >
-                          <CreditCard size={14} /> Pay Now
-                        </button>
-                      ) : (
-                        <span style={{ color: '#6ee7b7', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <CheckCircle2 size={16} /> Paid on {new Date(bill.paid_at).toLocaleDateString()}
-                        </span>
-                      )}
+                          Print Invoice
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 ))}

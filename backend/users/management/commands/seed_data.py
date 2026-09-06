@@ -268,6 +268,39 @@ class Command(BaseCommand):
             defaults={'unit_price': 28.00, 'quantity': 1, 'total_price': 28.00}
         )
 
+        # 7. Seed Wards & Beds
+        from beds.models import Ward, Bed, BedAdmission
+        ward_icu, _ = Ward.objects.get_or_create(name='Intensive Care Unit (ICU)', defaults={'floor': '3rd Floor', 'daily_rate': 450.00})
+        ward_gen, _ = Ward.objects.get_or_create(name='General Medical Ward', defaults={'floor': '2nd Floor', 'daily_rate': 120.00})
+
+        bed1, _ = Bed.objects.get_or_create(ward=ward_icu, bed_number='ICU-101', defaults={'status': Bed.Status.OCCUPIED})
+        bed2, _ = Bed.objects.get_or_create(ward=ward_icu, bed_number='ICU-102', defaults={'status': Bed.Status.AVAILABLE})
+        bed3, _ = Bed.objects.get_or_create(ward=ward_gen, bed_number='GW-201', defaults={'status': Bed.Status.AVAILABLE})
+
+        BedAdmission.objects.get_or_create(
+            patient=patient,
+            bed=bed1,
+            defaults={'reason': 'Severe hypertension observation', 'status': BedAdmission.Status.ADMITTED}
+        )
+
+        # 8. Seed Lab Test Catalog & Orders
+        from lab_tests.models import LabTestCatalog, LabTestOrder
+        lab1, _ = LabTestCatalog.objects.get_or_create(
+            test_code='LAB-CBC-01',
+            defaults={'test_name': 'Complete Blood Count (CBC)', 'category': 'Hematology', 'price': 45.00, 'reference_range': 'Hb: 13.5-17.5 g/dL, WBC: 4,500-11,000/mcL'}
+        )
+        lab2, _ = LabTestCatalog.objects.get_or_create(
+            test_code='LAB-LIP-02',
+            defaults={'test_name': 'Lipid Profile', 'category': 'Biochemistry', 'price': 65.00, 'reference_range': 'Total Cholesterol < 200 mg/dL'}
+        )
+
+        LabTestOrder.objects.get_or_create(
+            patient=patient,
+            doctor=doctor,
+            test=lab2,
+            defaults={'status': LabTestOrder.Status.COMPLETED, 'result_notes': 'Total Cholesterol: 210 mg/dL (Slightly Elevated)'}
+        )
+
         self.stdout.write(self.style.SUCCESS("Successfully seeded database!"))
         self.stdout.write(self.style.SUCCESS("Demo credentials:"))
         self.stdout.write("  Admin:        admin@hospital.com        / admin1234")

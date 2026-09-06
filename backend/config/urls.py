@@ -23,6 +23,8 @@ urlpatterns = [
     path('api/v1/billing/', include('billing.urls')),
     path('api/v1/notifications/', include('notifications.urls')),
     path('api/v1/dashboard/', include('dashboard.urls')),
+    path('api/v1/beds/', include('beds.urls')),
+    path('api/v1/lab-tests/', include('lab_tests.urls')),
 ]
 
 if settings.DEBUG:
